@@ -1,9 +1,16 @@
 import React from 'react'
 
-const Box = () => {
+const Box = ({row, col}) => {
+    row = Object.values(row);
+    col = Object.values(col);
+    row = row.map(x => x)[0];
+    col = col.map(x => x)[0];
+
     return (
-        <td bgcolor="#FFFFFF">
-            <table border="0" cellpadding="4" cellspacing="0"></table>
+        <td 
+            class="box" 
+            id={row + "-" + col} 
+            onClick={function() {alert('You are clicking on the cell EXAMPLE')}}>
         </td>
     )
 }

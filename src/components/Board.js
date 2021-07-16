@@ -1,23 +1,30 @@
 import React from 'react'
 import Box from './Box'
 
+
+function initBoard() {
+    let rows = [] 
+    for(var i = 0; i < 16; i++){
+        let cells = []
+        for(var j = 0; j < 51; j++) {
+            cells.push(<Box row={i} col={j}/>);
+        }
+        rows.push(<tr>{cells}</tr>);
+    }
+  return rows;
+}
+
 const Board = () => {
     return (
-        <table>
+        <table class="board" cellspacing="0" cellpadding="0">
             <tbody>
-                <tr>
-                    <Box/>
-                    <Box/>
-                    <Box/>
-                    <Box/>
-                    <Box/>
-                    <Box/>
-                    <Box/>
-                    <Box/>
-                </tr>
+                {initBoard()}
             </tbody>
         </table>
     )
 }
+
+
+
 
 export default Board

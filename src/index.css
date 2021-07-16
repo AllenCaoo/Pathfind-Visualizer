@@ -125,7 +125,16 @@ footer {
   text-align: center;
 }
 
-table {
-  border: 2px solid black;
+.board {
+  padding:2px;
+}
+
+td {
+  border:solid 1px green;
+}
+
+.box {
+  width: 25px;
+  height: 25px;
 }
 
