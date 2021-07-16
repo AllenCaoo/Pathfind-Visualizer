@@ -6,8 +6,9 @@ const Box = ({row, col}) => {
     toggleWall = () => {
         isWall = !isWall;
         if (isWall) {
-            console.log(`${row}-${col}`);
             document.getElementById(`${row}-${col}`).style.backgroundColor = "black";
+        } else {
+            document.getElementById(`${row}-${col}`).style.backgroundColor = "white";
         }
     }
 
