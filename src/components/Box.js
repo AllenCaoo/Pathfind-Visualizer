@@ -1,16 +1,21 @@
-import React from 'react'
-
+import {React, useState} from 'react'
 const Box = ({row, col}) => {
-    row = Object.values(row);
-    col = Object.values(col);
-    row = row.map(x => x)[0];
-    col = col.map(x => x)[0];
+
+    var [isWall, toggleWall] = useState(false);
+
+    toggleWall = () => {
+        isWall = !isWall;
+        if (isWall) {
+            console.log(`${row}-${col}`);
+            document.getElementById(`${row}-${col}`).style.backgroundColor = "black";
+        }
+    }
 
     return (
         <td 
-            class="box" 
+            className="box" 
             id={row + "-" + col} 
-            onClick={function() {alert('You are clicking on the cell EXAMPLE')}}>
+            onClick={ toggleWall } >
         </td>
     )
 }

@@ -16,7 +16,7 @@ function initBoard() {
 
 const Board = () => {
     return (
-        <table class="board" cellspacing="0" cellpadding="0">
+        <table class="board" cellSpacing="0" cellPadding="0">
             <tbody>
                 {initBoard()}
             </tbody>
