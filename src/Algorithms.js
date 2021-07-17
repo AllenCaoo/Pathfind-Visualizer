@@ -22,23 +22,28 @@ export function DFS(startRow, startCol, endRow, endCol) {
 
 export function BFS(startRow, startCol, endRow, endCol) {
     let queue = [];
-    let curr = getElementByPos(startRow, startCol);
-    queue.push(curr);
+    let curr;
+    queue.push(getElementByPos(startRow, startCol));
     while (queue.length != 0) {
-        addToQueue(queue, getElementByPos(startRow - 1, startCol));
-        addToQueue(queue, getElementByPos(startRow - 1, startCol - 1));
-        addToQueue(queue, getElementByPos(startRow, startCol - 1));
-        addToQueue(queue, getElementByPos(startRow + 1, startCol - 1));
-        addToQueue(queue, getElementByPos(startRow + 1, startCol));
-        addToQueue(queue, getElementByPos(startRow + 1, startCol) + 1);
-        addToQueue(queue, getElementByPos(startRow, startCol + 1));
-        addToQueue(queue, getElementByPos(startRow - 1, startCol + 1));
+        curr = queue[0];
+        addToQueue(queue, startRow - 1, startCol);
+        addToQueue(queue, startRow - 1, startCol - 1);
+        addToQueue(queue, startRow, startCol - 1);
+        addToQueue(queue, startRow + 1, startCol - 1);
+        addToQueue(queue, startRow + 1, startCol);
+        addToQueue(queue, startRow + 1, startCol + 1);
+        addToQueue(queue, startRow, startCol + 1);
+        addToQueue(queue, startRow - 1, startCol + 1);
         // TODO: pop off, color, loop, etc.
+        queue.shift();
+        curr.style.color = "blue";
     }
     
 }
 
 function getElementByPos(row, col) {
+    if (row < 0 || row > maxRow - 1) { return; }
+    if (col < 0 || col > maxCol - 1) { return; }
     return document.getElementById(`${row}-${col}`); 
 }
 
@@ -46,7 +51,7 @@ function addToQueue(queue, row, col) {
     if (row < 0 || row > maxRow) { return; }
     if (col < 0 || col > maxCol) { return; }
     let box = getElementByPos(row, col);
-    if (box.style.backgroundColor == "white") {
+    if (box.style.backgroundColor === "white") {
         queue.push(box);
     }
 }

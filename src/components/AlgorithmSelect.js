@@ -2,7 +2,7 @@ import React from 'react'
 
 const AlgorithmSelect = ({color}) => {
     return (
-        <select className='slct' style={{backgroundColor: color}}>
+        <select className='slct' id='algorithms' style={{backgroundColor: color}}>
             <option value="DI">Dijkstra's</option>
             <option value="A*">A*</option>
             <option value="DFS">Depth First Search</option>

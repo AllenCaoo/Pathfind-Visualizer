@@ -1,9 +1,9 @@
-import React from 'react'
-import Button from './Button'
-import AlgorithmSelect from './AlgorithmSelect'
-import Slider from './Slider'
+import React from 'react';
+import Button from './Button';
+import AlgorithmSelect from './AlgorithmSelect';
+import Slider from './Slider';
 
-const Settings = () => {
+const Settings = ({algorithm}) => {
 
     const clear = () => {
         var boxes = document.getElementsByClassName("box");
@@ -17,9 +17,11 @@ const Settings = () => {
             <AlgorithmSelect />
             <Button color='blue' text="Clear" onClick={clear} />
             <Button color='red' text="Stop"/>
-            <Button color='green' text="Run"/>
+            <Button color='green' text="Run" onClick={() => {algorithm(5, 5)}}/>
         </div>
     )
 }
+
+//TODO: {algorithm} must be function
 
 export default Settings

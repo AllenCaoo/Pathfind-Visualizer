@@ -6,7 +6,7 @@ const Box = ({row, col}) => {
 
     toggleWall = () => {
         let currColor = document.getElementById(`${row}-${col}`).style.backgroundColor;
-        if (currColor == "white") {
+        if (currColor === "white") {
             document.getElementById(`${row}-${col}`).style.backgroundColor = "black";
         } else {
             document.getElementById(`${row}-${col}`).style.backgroundColor = "white";
