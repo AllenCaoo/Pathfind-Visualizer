@@ -17,7 +17,7 @@ const Settings = ({algorithm}) => {
             <AlgorithmSelect />
             <Button color='blue' text="Clear" onClick={clear} />
             <Button color='red' text="Stop"/>
-            <Button color='green' text="Run" onClick={() => {algorithm(5, 5)}}/>
+            <Button color='green' text="Run" onClick={() => {algorithm(5, 5, 14, 14)}}/>
         </div>
     )
 }
