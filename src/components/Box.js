@@ -1,11 +1,12 @@
 import {React, useState} from 'react'
 const Box = ({row, col}) => {
 
-    var [isWall, toggleWall] = useState(false);
+    var [_, toggleWall] = useState(false);
+
 
     toggleWall = () => {
-        isWall = !isWall;
-        if (isWall) {
+        let currColor = document.getElementById(`${row}-${col}`).style.backgroundColor;
+        if (currColor == "white") {
             document.getElementById(`${row}-${col}`).style.backgroundColor = "black";
         } else {
             document.getElementById(`${row}-${col}`).style.backgroundColor = "white";
@@ -15,7 +16,8 @@ const Box = ({row, col}) => {
     return (
         <td 
             className="box" 
-            id={row + "-" + col} 
+            id={row + "-" + col}
+            style={{backgroundColor: "white"}} 
             onClick={ toggleWall } >
         </td>
     )

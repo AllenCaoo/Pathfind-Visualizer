@@ -139,5 +139,11 @@ td {
   width: 25px;
   height: 25px;
   background-color: white;
+  animation: mymove 5s infinite;
 }
+
+/* @keyframes mymove {
+  from {background-color: red;}
+  to {background-color: blue;}
+} */
 
