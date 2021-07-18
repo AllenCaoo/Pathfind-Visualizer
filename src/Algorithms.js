@@ -63,10 +63,11 @@ function addToQueue(queue, row, col) {
     if (row < 0 || row > maxRow - 1) { return; }
     if (col < 0 || col > maxCol - 1) { return; }
     let box = getElementByPos(row, col);
+    console.log(`${row}, ${col}, ${box.style.backgroundColor}`);
     if (!queue.includes(box)) {
-        console.log(`${row}, ${col}, ${box.style.backgroundColor}`);
         queue.push(box);
     }
+    console.log(queue);
 }
 
 function sleep(ms) {
