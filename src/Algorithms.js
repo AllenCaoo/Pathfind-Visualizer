@@ -37,27 +37,20 @@ export function BFS(startRow, startCol, endRow, endCol) {
         curr = queue[0];
         // TODO: pop off, color, loop, etc.
         queue.shift();
-        try {
-            startRow = getRowFromId(curr.id);
-            startCol = getColFromId(curr.id);
-        } catch (error) {
-            console.log(`previous: ${soFar[soFar.length - 3].id}, 
-                                   ${soFar[soFar.length - 2].id}, 
-                                   ${soFar[soFar.length - 1].id}`);
-            console.log(curr);
-        }
+        startRow = getRowFromId(curr.id);
+        startCol = getColFromId(curr.id);
         soFar.push(curr);
         prev = curr;
         startRow = getRowFromId(curr.id);
         startCol = getColFromId(curr.id);
-        addToQueue(queue, startRow - 1, startCol);
-        addToQueue(queue, startRow - 1, startCol - 1);
-        addToQueue(queue, startRow, startCol - 1);
-        addToQueue(queue, startRow + 1, startCol - 1);
-        addToQueue(queue, startRow + 1, startCol);
-        addToQueue(queue, startRow + 1, startCol + 1);
-        addToQueue(queue, startRow, startCol + 1);
-        addToQueue(queue, startRow - 1, startCol + 1);
+        addToQueue(queue, startRow - 1, startCol, soFar);
+        addToQueue(queue, startRow - 1, startCol - 1, soFar);
+        addToQueue(queue, startRow, startCol - 1, soFar);
+        addToQueue(queue, startRow + 1, startCol - 1, soFar);
+        addToQueue(queue, startRow + 1, startCol, soFar);
+        addToQueue(queue, startRow + 1, startCol + 1, soFar);
+        addToQueue(queue, startRow, startCol + 1, soFar);
+        addToQueue(queue, startRow - 1, startCol + 1, soFar);
     }
     display(soFar);
 }
@@ -83,18 +76,12 @@ function getElementByPos(row, col) {
     return document.getElementById(`${row}-${col}`); 
 }
 
-function addToQueue(queue, row, col) {
+function addToQueue(queue, row, col, soFar) {
     if (row < 0 || row > maxRow) { return; }
     if (col < 0 || col > maxCol) { return; }
     let box = getElementByPos(row, col);
-    // console.log(`${row}, ${col}`);
-    // console.log(`${row}, ${col}, ${box.style.backgroundColor}`);
-    if (!queue.includes(box)) {
+    if (!queue.includes(box) && !soFar.includes(box)) {
         queue.push(box);
-        // console.log(`${row}-${col}`);
-        if (box == null) {
-            console.log(`This is null: ${row}, ${col}`);
-        }
     }
 
 }
@@ -104,9 +91,9 @@ function sleep(ms) {
 }
 
 async function display(queue) {
+    let ms = 0;
     for (let i = 0; i < queue.length; i++) {
         queue[i].style.backgroundColor = "blue";
-        let ms = 0;
         await sleep(ms);
     }
     console.log('end');
