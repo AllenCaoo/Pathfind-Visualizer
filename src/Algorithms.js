@@ -96,15 +96,15 @@ function sleep(ms) {
 }
 
 async function display(queue, path) {
-    console.log(queue);
     let ms = 0;
     for (let i = 0; i < queue.length; i++) {
         queue[i].style.backgroundColor = "blue";
         await sleep(ms);
     }
+    let pathMS = 20;
     for (let i = 0; i < path.length; i++) {
         path[i].style.backgroundColor = "yellow";
-        await sleep(ms);
+        await sleep(pathMS);
     }
     console.log('end');
 }
