@@ -27,13 +27,8 @@ export function BFS(startRow, startCol, endRow, endCol) {
     let curr;
     let soFar = [];
     let prev;
-    let count = 0;
     queue.push(getElementByPos(startRow, startCol));
     while (queue.length != 0) {
-        if (count == 100000) {
-            break;
-        }
-        count++;
         curr = queue[0];
         // TODO: pop off, color, loop, etc.
         queue.shift();
@@ -44,13 +39,9 @@ export function BFS(startRow, startCol, endRow, endCol) {
         startRow = getRowFromId(curr.id);
         startCol = getColFromId(curr.id);
         addToQueue(queue, startRow - 1, startCol, soFar);
-        addToQueue(queue, startRow - 1, startCol - 1, soFar);
         addToQueue(queue, startRow, startCol - 1, soFar);
-        addToQueue(queue, startRow + 1, startCol - 1, soFar);
         addToQueue(queue, startRow + 1, startCol, soFar);
-        addToQueue(queue, startRow + 1, startCol + 1, soFar);
         addToQueue(queue, startRow, startCol + 1, soFar);
-        addToQueue(queue, startRow - 1, startCol + 1, soFar);
     }
     display(soFar);
 }
