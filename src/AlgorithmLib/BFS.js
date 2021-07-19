@@ -2,7 +2,9 @@ import {getAdjacent, getRowFromId, getColFromId, getElementByPos, display} from 
 
 function BFSRun(startRow, startCol, endRow, endCol) {
     let queue = [];
-    let visited = [];
+    let visited = []; // visited will include boxes from scouting adjacents (for performance)
+    let marked = []; // marked will not include boxes from scouting adjacents
+                     // (so that BFS will stop and not look at adjacents at last node)
     let firstBox = getElementByPos(startRow, startCol)
     queue.push([firstBox]);
     visited.push(firstBox);
@@ -10,10 +12,11 @@ function BFSRun(startRow, startCol, endRow, endCol) {
         let path = queue[0];
         queue.shift();
         let node = path[path.length - 1];
+        marked.push(node);
         startRow = getRowFromId(node.id);
         startCol = getColFromId(node.id);
         if (startRow === endRow && startCol === endCol) {
-            display(visited, path);
+            display(marked, path);
             break;
         }
         let adjacents = getAdjacent(startRow, startCol, visited);
@@ -24,7 +27,7 @@ function BFSRun(startRow, startCol, endRow, endCol) {
             visited.push(box);
         });
     }
-    display(visited, []);
+    display(marked, []);
 }
 
 export default BFSRun;
