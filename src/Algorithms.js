@@ -2,15 +2,6 @@ import BFSRun from './AlgorithmLib/BFS';
 import DFSRun from './AlgorithmLib/DFS';
 import DijkstrasRun from './AlgorithmLib/Dijkstras';
 import A_star_run from './AlgorithmLib/A_star';
-/* When neighbors are same length away, break tie by whoever comes first in a counterclocwise
-    rotation, starting from the box directly above the starting position.
-    For example:
-             A
-        B  Start  D
-             C    
-    BFS results in A-B-C-D
-    */
-
 var running = false;
 
 export function Dijkstras(startRow, startCol, endRow, endCol) {

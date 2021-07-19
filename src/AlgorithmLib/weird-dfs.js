@@ -1,14 +1,15 @@
 import {getAdjacent, getRowFromId, getColFromId, getElementByPos, display} from './utils';
 
-function BFSRun(startRow, startCol, endRow, endCol) {
-    let queue = [];
-    let visited = [];
+
+var stack = [];
+var visited = [];
+function DFSRun(startRow, startCol, endRow, endCol) {
     let firstBox = getElementByPos(startRow, startCol)
-    queue.push([firstBox]);
+    stack.push([firstBox]);
     visited.push(firstBox);
-    while (queue.length != 0) {
-        let path = queue[0];
-        queue.shift();
+    while (stack.length != 0) {
+        let path = stack[0];
+        stack.shift();
         let node = path[path.length - 1];
         startRow = getRowFromId(node.id);
         startCol = getColFromId(node.id);
@@ -20,11 +21,10 @@ function BFSRun(startRow, startCol, endRow, endCol) {
         adjacents.forEach(box => {
             let newPath = path.slice();
             newPath.push(box);
-            queue.push(newPath);
-            visited.push(box);
-        });
+            stack = [newPath].concat(stack);
+        })
     }
     display(visited, []);
 }
 
-export default BFSRun;
+export default DFSRun;

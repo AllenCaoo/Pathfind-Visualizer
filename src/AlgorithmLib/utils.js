@@ -1,12 +1,19 @@
 import {maxRow, maxCol} from '../components/Board';
 
 
+
 export function getAdjacent(startRow, startCol, soFar) {
+    /* Orientation:
+            A
+        D start B
+            C
+    A -> B -> C -> D
+    */
     let lst = [];
     addToQueue(lst, startRow - 1, startCol, soFar, false);
-    addToQueue(lst, startRow, startCol - 1, soFar, false);
-    addToQueue(lst, startRow + 1, startCol, soFar, false);
     addToQueue(lst, startRow, startCol + 1, soFar, false);
+    addToQueue(lst, startRow + 1, startCol, soFar, false);
+    addToQueue(lst, startRow, startCol - 1, soFar, false);
     return lst;
 }
 
@@ -40,7 +47,6 @@ function addToQueue(queue, row, col, soFar, asList) {
             queue.push([box]);
         } else {
             queue.push(box);
-            soFar.push(box);
         }
     }
 }
@@ -52,7 +58,9 @@ function sleep(ms) {
 export async function display(queue, path) {
     let ms = 0;
     for (let i = 0; i < queue.length; i++) {
-        queue[i].style.backgroundColor = "blue";
+        if (queue[i].style.backgroundColor === "white") {  // don't override green or red
+            queue[i].style.backgroundColor = "blue";
+        }
         await sleep(ms);
     }
     let pathMS = 20;
