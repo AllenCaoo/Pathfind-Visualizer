@@ -24,35 +24,35 @@ export function DFS(startRow, startCol, endRow, endCol) {
 export function BFS(startRow, startCol, endRow, endCol) {
     console.log("Running BFS");
     let queue = [];
+    let curr;
     let soFar = [];
-    queue.push([getElementByPos(startRow, startCol)]);
+    let prev;
+    let count = 0;
+    queue.push(getElementByPos(startRow, startCol));
     while (queue.length != 0) {
-        let path = queue[0];
-        queue.shift();
-        let node = path[path.length - 1];
-        startRow = getRowFromId(node.id);
-        startCol = getColFromId(node.id);
-        if (startRow === endRow && startRow === endCol) {
-            display(path);
+        if (count == 100000) {
             break;
         }
-        soFar.push(node);
-        let adjacents = getAdjacent(startRow, startCol, soFar);
-        adjacents.forEach(box => {
-            let newPath = [path];
-            newPath.push(box);
-            addToQueue(queue, getRowFromId(box.id), getRowFromId(box.id), soFar, true);
-        })
+        count++;
+        curr = queue[0];
+        // TODO: pop off, color, loop, etc.
+        queue.shift();
+        startRow = getRowFromId(curr.id);
+        startCol = getColFromId(curr.id);
+        soFar.push(curr);
+        prev = curr;
+        startRow = getRowFromId(curr.id);
+        startCol = getColFromId(curr.id);
+        addToQueue(queue, startRow - 1, startCol, soFar);
+        addToQueue(queue, startRow - 1, startCol - 1, soFar);
+        addToQueue(queue, startRow, startCol - 1, soFar);
+        addToQueue(queue, startRow + 1, startCol - 1, soFar);
+        addToQueue(queue, startRow + 1, startCol, soFar);
+        addToQueue(queue, startRow + 1, startCol + 1, soFar);
+        addToQueue(queue, startRow, startCol + 1, soFar);
+        addToQueue(queue, startRow - 1, startCol + 1, soFar);
     }
-}
-
-function getAdjacent(startRow, startCol, soFar) {
-    let lst = [];
-    addToQueue(lst, startRow - 1, startCol, soFar, false);
-    addToQueue(lst, startRow, startCol - 1, soFar, false);
-    addToQueue(lst, startRow + 1, startCol, soFar, false);
-    addToQueue(lst, startRow, startCol + 1, soFar, false);
-    return lst;
+    display(soFar);
 }
 
 function getRowFromId(id) {
@@ -76,15 +76,14 @@ function getElementByPos(row, col) {
     return document.getElementById(`${row}-${col}`); 
 }
 
-function addToQueue(queue, row, col, soFar, asList) {
+function addToQueue(queue, row, col, soFar) {
     if (row < 0 || row > maxRow) { return; }
     if (col < 0 || col > maxCol) { return; }
     let box = getElementByPos(row, col);
-    if (asList) {
-        queue.push([box]);
-    } else {
+    if (!queue.includes(box) && !soFar.includes(box)) {
         queue.push(box);
     }
+
 }
 
 function sleep(ms) {
