@@ -4,7 +4,7 @@ import AlgorithmSelect from './AlgorithmSelect';
 import { FaTimes } from 'react-icons/fa';
 import {maxRow, maxCol} from './Board';
 export var startPos = [8, 8];
-export var endPos = [8, 40];
+export var endPos = [8, 42];
 export var startingIcon = <FaTimes style={{color: 'red', cursor: 'pointer'}}/>
 
 
