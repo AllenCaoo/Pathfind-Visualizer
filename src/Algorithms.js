@@ -20,17 +20,34 @@ export function DFS(startRow, startCol, endRow, endCol) {
     
 }
 
-export async function BFS(startRow, startCol, endRow, endCol) {
+
+export function BFS(startRow, startCol, endRow, endCol) {
     console.log("Running BFS");
     let queue = [];
     let curr;
+    let soFar = [];
+    let prev;
+    let count = 0;
     queue.push(getElementByPos(startRow, startCol));
     while (queue.length != 0) {
+        if (count == 100000) {
+            break;
+        }
+        count++;
         curr = queue[0];
         // TODO: pop off, color, loop, etc.
         queue.shift();
-        curr.style.backgroundColor = "blue";
-        await sleep(100);
+        try {
+            startRow = getRowFromId(curr.id);
+            startCol = getColFromId(curr.id);
+        } catch (error) {
+            console.log(`previous: ${soFar[soFar.length - 3].id}, 
+                                   ${soFar[soFar.length - 2].id}, 
+                                   ${soFar[soFar.length - 1].id}`);
+            console.log(curr);
+        }
+        soFar.push(curr);
+        prev = curr;
         startRow = getRowFromId(curr.id);
         startCol = getColFromId(curr.id);
         addToQueue(queue, startRow - 1, startCol);
@@ -42,16 +59,23 @@ export async function BFS(startRow, startCol, endRow, endCol) {
         addToQueue(queue, startRow, startCol + 1);
         addToQueue(queue, startRow - 1, startCol + 1);
     }
-    
+    display(soFar);
 }
 
 function getRowFromId(id) {
-    return parseInt(id.charAt(0));
+    let index = 0;
+    let num = '';
+    while (id.charAt(index) != '-'){
+        num += id.charAt(index);
+        index++;
+    }
+    return parseInt(num);
 }
 
 
 function getColFromId(id) {
-    return parseInt(id.charAt(2));
+    let index = id.search('-');
+    return parseInt(id.substring(index + 1));
 }
 
 
@@ -60,16 +84,30 @@ function getElementByPos(row, col) {
 }
 
 function addToQueue(queue, row, col) {
-    if (row < 0 || row > maxRow - 1) { return; }
-    if (col < 0 || col > maxCol - 1) { return; }
+    if (row < 0 || row > maxRow) { return; }
+    if (col < 0 || col > maxCol) { return; }
     let box = getElementByPos(row, col);
-    console.log(`${row}, ${col}, ${box.style.backgroundColor}`);
+    // console.log(`${row}, ${col}`);
+    // console.log(`${row}, ${col}, ${box.style.backgroundColor}`);
     if (!queue.includes(box)) {
         queue.push(box);
+        // console.log(`${row}-${col}`);
+        if (box == null) {
+            console.log(`This is null: ${row}, ${col}`);
+        }
     }
-    console.log(queue);
+
 }
 
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+async function display(queue) {
+    for (let i = 0; i < queue.length; i++) {
+        queue[i].style.backgroundColor = "blue";
+        let ms = 0;
+        await sleep(ms);
+    }
+    console.log('end');
 }
