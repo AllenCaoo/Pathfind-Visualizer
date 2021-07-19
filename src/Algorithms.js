@@ -8,6 +8,8 @@ import {maxRow, maxCol} from './components/Board';
     BFS results in A-B-C-D-E-F-G
     */
 
+var running = false;
+
 export function Dijkstras(startRow, startCol, endRow, endCol) {
 
 }
@@ -22,6 +24,7 @@ export function DFS(startRow, startCol, endRow, endCol) {
 
 
 export function BFS(startRow, startCol, endRow, endCol) {
+    running = true;
     console.log("Running BFS");
     let queue = [];
     let soFar = [];
@@ -45,6 +48,8 @@ export function BFS(startRow, startCol, endRow, endCol) {
             queue.push(newPath);
         })
     }
+    display(soFar, []);
+    running = false;
 }
 
 function getAdjacent(startRow, startCol, soFar) {

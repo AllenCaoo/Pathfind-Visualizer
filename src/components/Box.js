@@ -1,14 +1,19 @@
-import {React, useState} from 'react'
+import {React, useState} from 'react';
+
 const Box = ({row, col}) => {
 
-    var [_, toggleWall] = useState(false);
+    var [_, toggleState] = useState(false);
 
 
-    toggleWall = () => {
+    toggleState = () => {
         let currColor = document.getElementById(`${row}-${col}`).style.backgroundColor;
+        // if (selectingBegin) {
+        //     let startBox = document.getElementById(`${startPos[0]}-${startPos[1]}`);
+        //     startBox.style.backgroundColor = "white";
+        //     startPos = [row, col];
         if (currColor === "white") {
             document.getElementById(`${row}-${col}`).style.backgroundColor = "black";
-        } else {
+        } else if (currColor === "black") {
             document.getElementById(`${row}-${col}`).style.backgroundColor = "white";
         }
     }
@@ -18,7 +23,7 @@ const Box = ({row, col}) => {
             className="box" 
             id={row + "-" + col}
             style={{backgroundColor: "white"}} 
-            onClick={ toggleWall } >
+            onClick={ toggleState } >
         </td>
     )
 }
