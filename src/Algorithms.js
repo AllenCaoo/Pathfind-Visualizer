@@ -24,32 +24,42 @@ export function DFS(startRow, startCol, endRow, endCol) {
 export function BFS(startRow, startCol, endRow, endCol) {
     console.log("Running BFS");
     let queue = [];
-    let curr;
     let soFar = [];
-    let prev;
-    queue.push(getElementByPos(startRow, startCol));
+    let firstBox = getElementByPos(startRow, startCol)
+    queue.push([firstBox]);
+    soFar.push(firstBox);
     while (queue.length != 0) {
-        curr = queue[0];
-        // TODO: pop off, color, loop, etc.
+        let path = queue[0];
         queue.shift();
-        startRow = getRowFromId(curr.id);
-        startCol = getColFromId(curr.id);
-        soFar.push(curr);
-        prev = curr;
-        startRow = getRowFromId(curr.id);
-        startCol = getColFromId(curr.id);
-        addToQueue(queue, startRow - 1, startCol, soFar);
-        addToQueue(queue, startRow, startCol - 1, soFar);
-        addToQueue(queue, startRow + 1, startCol, soFar);
-        addToQueue(queue, startRow, startCol + 1, soFar);
+        let node = path[path.length - 1];
+        startRow = getRowFromId(node.id);
+        startCol = getColFromId(node.id);
+        if (startRow === endRow && startCol === endCol) {
+            display(soFar, path);
+            break;
+        }
+        let adjacents = getAdjacent(startRow, startCol, soFar);
+        adjacents.forEach(box => {
+            let newPath = path.slice();
+            newPath.push(box);
+            queue.push(newPath);
+        })
     }
-    display(soFar);
+}
+
+function getAdjacent(startRow, startCol, soFar) {
+    let lst = [];
+    addToQueue(lst, startRow - 1, startCol, soFar, false);
+    addToQueue(lst, startRow, startCol - 1, soFar, false);
+    addToQueue(lst, startRow + 1, startCol, soFar, false);
+    addToQueue(lst, startRow, startCol + 1, soFar, false);
+    return lst;
 }
 
 function getRowFromId(id) {
     let index = 0;
     let num = '';
-    while (id.charAt(index) != '-'){
+    while (id.charAt(index) != '-') {
         num += id.charAt(index);
         index++;
     }
@@ -67,25 +77,35 @@ function getElementByPos(row, col) {
     return document.getElementById(`${row}-${col}`); 
 }
 
-function addToQueue(queue, row, col, soFar) {
+function addToQueue(queue, row, col, soFar, asList) {
     if (row < 0 || row > maxRow) { return; }
     if (col < 0 || col > maxCol) { return; }
     let box = getElementByPos(row, col);
-    if (!queue.includes(box) && !soFar.includes(box)) {
-        queue.push(box);
+    if (!soFar.includes(box) && box.style.backgroundColor != "black") {
+        if (asList) {
+            queue.push([box]);
+        } else {
+            queue.push(box);
+            soFar.push(box);
+        }
     }
-
 }
 
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-async function display(queue) {
+async function display(queue, path) {
+    console.log(queue);
     let ms = 0;
     for (let i = 0; i < queue.length; i++) {
         queue[i].style.backgroundColor = "blue";
         await sleep(ms);
     }
+    for (let i = 0; i < path.length; i++) {
+        path[i].style.backgroundColor = "yellow";
+        await sleep(ms);
+    }
     console.log('end');
 }
+
