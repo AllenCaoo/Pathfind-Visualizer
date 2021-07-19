@@ -1,4 +1,4 @@
-import {maxRow, maxCol} from './components/Board';
+import {maxRow, maxCol} from '../components/Board';
 
 
 export function getAdjacent(startRow, startCol, soFar) {
@@ -60,6 +60,6 @@ export async function display(queue, path) {
         path[i].style.backgroundColor = "yellow";
         await sleep(pathMS);
     }
-    console.log('end');
+    console.log('Displayed');
 }
 
