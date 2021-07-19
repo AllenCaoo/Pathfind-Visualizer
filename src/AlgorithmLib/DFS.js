@@ -5,6 +5,7 @@ var visited = [];
 function DFSRun(startRow, startCol, endRow, endCol) {
     let DFSPath = DFSHelper(startRow, startCol, endRow, endCol, []);
     DFSPath ? display(visited, DFSPath) : display(visited, []);
+    resetDFS();
 }
 
 function DFSHelper(startRow, startCol, endRow, endCol, path) {
@@ -23,6 +24,10 @@ function DFSHelper(startRow, startCol, endRow, endCol, path) {
             return newPath;
         }
     };
+}
+
+function resetDFS() {
+    visited = [];
 }
 
 export default DFSRun;
