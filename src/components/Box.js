@@ -1,6 +1,6 @@
 import {React, useState} from 'react';
 
-const Box = ({row, col}) => {
+const Box = ({row, col, color}) => {
 
     var [_, toggleState] = useState(false);
 
@@ -22,10 +22,15 @@ const Box = ({row, col}) => {
         <td 
             className="box" 
             id={row + "-" + col}
-            style={{backgroundColor: "white"}} 
-            onClick={ toggleState } >
+            style={{backgroundColor: color}} 
+            onClick={ toggleState } 
+            >
         </td>
     )
+}
+
+Box.defaultProps = {
+    color: 'white'
 }
 
 export default Box

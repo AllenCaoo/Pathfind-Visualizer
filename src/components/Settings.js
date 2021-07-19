@@ -2,19 +2,26 @@ import React from 'react';
 import Button from './Button';
 import AlgorithmSelect from './AlgorithmSelect';
 import { FaTimes } from 'react-icons/fa';
-// import Slider from './Slider';
-// export var selectingBegin = false;
-// export var selectingEnd = false;
+import {maxRow, maxCol} from './Board';
 export var startPos = [8, 8];
+export var endPos = [8, 40];
 export var startingIcon = <FaTimes style={{color: 'red', cursor: 'pointer'}}/>
 
 
 const Settings = ({algorithm}) => {
 
     const clear = () => {
-        var boxes = document.getElementsByClassName("box");
-        for (var i = 0; i < boxes.length; i++) {
-            boxes[i].style.backgroundColor = "white";
+        for (let row = 0; row <= maxRow; row++) {
+            for (let col = 0; col <= maxCol; col++) {
+                let box = document.getElementById(`${row}-${col}`);
+                if (row === startPos[0] && col === startPos[1]) {
+                    box.style.backgroundColor = "green";
+                } else if (row === endPos[0] && col === endPos[1]) {
+                    box.style.backgroundColor = "red";
+                } else {
+                    box.style.backgroundColor = "white";
+                }
+            }
         }
     }
 
@@ -39,7 +46,7 @@ const Settings = ({algorithm}) => {
             <Button color='blue' text="Clear" onClick={clear} />
             <Button color='red' text="Stop"/>
             <Button color='green' text="Run" onClick={() => {
-                algorithm(startPos[0], startPos[1], 14, 40)}
+                algorithm(startPos[0], startPos[1], endPos[0], endPos[1])}
             }/>
         </div>
     )
