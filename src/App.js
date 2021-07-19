@@ -5,14 +5,17 @@ import {DFS, BFS, Dijkstras, A_star} from './Algorithms';
 
 function App() {
 
-  const getAlgorithm = () => {
-    return BFS;
+  const nameToAlgs = {
+    "DI": Dijkstras,
+    "DFS": DFS,
+    "BFS": BFS,
+    "A*": A_star
   }
 
   return ( // Has to return SINGLE element
     <div className="App">
       <Header/>
-      <Settings algorithm={getAlgorithm()} />
+      <Settings nameToAlgs={nameToAlgs} />
       <Board/>
     </div>
   );

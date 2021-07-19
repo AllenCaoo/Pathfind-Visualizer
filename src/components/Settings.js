@@ -1,4 +1,4 @@
-import React from 'react';
+import {React, useState} from 'react';
 import Button from './Button';
 import AlgorithmSelect from './AlgorithmSelect';
 import { FaTimes } from 'react-icons/fa';
@@ -8,7 +8,20 @@ export var endPos = [8, 42];
 export var startingIcon = <FaTimes style={{color: 'red', cursor: 'pointer'}}/>
 
 
-const Settings = ({algorithm}) => {
+const Settings = ({nameToAlgs}) => {
+
+    var [selectedAlg, changeSelectedAlg] = useState('DI'); 
+                                           // TODO: get the first option instead, 
+                                           // needs to wait after construction
+
+    changeSelectedAlg = (alg) => {
+        selectedAlg = alg;
+        console.log('algorithm changed to: ' + alg);
+    }
+
+    const getSelectedAlg = () => {
+        return nameToAlgs[selectedAlg];
+    }
 
     const clear = () => {
         for (let row = 0; row <= maxRow; row++) {
@@ -25,28 +38,15 @@ const Settings = ({algorithm}) => {
         }
     }
 
-    // const toggleSelectBegin = () => {
-    //     selectingBegin = !selectingBegin;
-    //     if (selectingBegin) {
-    //         console.log("selecting begin on");
-    //     }
-    //     else {
-    //         console.log("selecting begin off");
-    //     }
-    // }
-
-    // const initializeStartEnd = () => {
-    // }
-
     return (
         <div>
-            <AlgorithmSelect />
+            <AlgorithmSelect onChange={changeSelectedAlg} />
             <Button color='purple' text="Change Start"/>
             <Button color='purple' text="Change End"/>
             <Button color='blue' text="Clear" onClick={clear} />
             <Button color='red' text="Stop"/>
             <Button color='green' text="Run" onClick={() => {
-                algorithm(startPos[0], startPos[1], endPos[0], endPos[1])}
+                getSelectedAlg()(startPos[0], startPos[1], endPos[0], endPos[1])}
             }/>
         </div>
     )
