@@ -96,10 +96,8 @@ export async function display(queue, path) {
 export class MinHeap {
     constructor(boxes, sourceBox) {
         this.arrayRep = [null]; // 0th position is sentinel
-        this.source = new Node(sourceBox, sourceBox);
-        this.arrayRep[1] = this.source;
         boxes.forEach(box => {
-            this.addNode(new Node(box));
+            this.addNode(new Node(box, sourceBox));
         });
     }
 
@@ -211,9 +209,10 @@ export class MinHeap {
 
 class Node {
     constructor(box, source) {
-        this.source = source;
         this.box = box;
-        this.distTo = Infinity;
+        this.source = source;
+        this.distTo = box === source ? 0 :Infinity;
     }
 }
+
 
