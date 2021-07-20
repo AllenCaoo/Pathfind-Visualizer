@@ -44,7 +44,7 @@ const Settings = ({nameToAlgs}) => {
             {/* <Button color='purple' text="Change Start"/> 
             <Button color='purple' text="Change End"/> */}  {/* To be deployed later*/}
             <Button color='blue' text="Clear" onClick={clear} />
-            <Button color='red' text="Stop"/>
+            <Button color='red' text="Stop (unavailable)"/>  {/* To be deployed later*/}
             <Button color='green' text="Run" onClick={() => {
                 getSelectedAlg()(startPos[0], startPos[1], endPos[0], endPos[1])}
             }/>
