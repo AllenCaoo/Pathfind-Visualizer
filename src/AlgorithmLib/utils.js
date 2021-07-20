@@ -94,32 +94,126 @@ export async function display(queue, path) {
 
 
 export class MinHeap {
-    constructor(elements, source) {
-        this.source = new Node(source);
+    constructor(boxes, sourceBox) {
+        this.arrayRep = [null]; // 0th position is sentinel
+        this.source = new Node(sourceBox, sourceBox);
+        this.arrayRep[1] = this.source;
+        boxes.forEach(box => {
+            this.addNode(new Node(box));
+        });
+    }
+
+    isEmpty() {
+        return this.arrayRep.length < 2;
     }
 
     compareNodes(node1, node2) {
-        
+        return node1.distTo - node2.distTo;
     }
 
-    addNode(node) {
+    parentIndex(index) {
+        return parseInt(index / 2);
+    }
 
+    parent(index) {
+        return this.parentIndex(index) < 1 ? 
+                null : this.arrayRep[this.parentIndex(index)];
+    }
+
+    rightChildIndex(index) {
+        return index * 2 + 1;
+    }
+
+    rightChild(index) {
+        return index * 2 + 1 >= this.arrayRep.length ? 
+                null : this.arrayRep[this.rightChildIndex(index)];
+    }
+
+    leftChildIndex(index) {
+        return index * 2;
+    }
+
+    leftChild(index) {
+        return index * 2 >= this.arrayRep.length ? 
+                null : this.arrayRep[this.leftChildIndex(index)];
+    }
+
+    /* Node added to end of arrayRep, swims up */
+    addNode(node) {
+        this.arrayRep.push(node);
+        let k = this.arrayRep.length - 1;
+        while (this.parent(k) 
+                && this.compareNodes(this.parent(k), node) > 0) { // node has lower distTo
+            let newIndex = this.parentIndex(k);
+            let prevParent = this.parent(k);
+            this.arrayRep[newIndex] = node;
+            this.arrayRep[k] = prevParent;
+            k = newIndex;
+        }
     }
 
     popSmallest() {
+        if (!this.isEmpty) {
+            this.arrayRep[1] = this.arrayRep[this.arrayRep.length - 1];
+            this.arrayRep.pop();
+            this.sink(1);
+        } else {
+            return null;
+        }
+    }
 
+    sink(index) {
+        let node = this.arrayRep[index];
+        let leftIndex = this.leftChildIndex(index);
+        let rightIndex = this.rightChildIndex(index);
+        let left = this.leftChild(index);
+        let right = this.rightChild(index)
+        if (left && right) {
+            if (this.compareNodes(node, left) <= 0 && this.compareNodes(node, right) <= 0) {
+                return;
+            }
+            let cp = this.compareNodes(left, right);
+            if (cp <= 0) {
+                // sink to the left
+                this.arrayRep[leftIndex] = node;
+                this.arrayRep[index] = left;
+                this.sink(leftIndex);
+            } else {
+                // sink to the right
+                this.arrayRep[rightIndex] = node;
+                this.arrayRep[index] = right;
+                this.sink(rightIndex);
+            }
+        } else if (left) {
+            let cp = this.compareNodes(node, left);
+            if (cp <= 0) {
+                return;
+            } else {
+                // sink to the left
+                this.arrayRep[leftIndex] = node;
+                this.arrayRep[index] = left;
+                this.sink(leftIndex);
+            }
+        } else if (right) {
+            let cp = this.compareNodes(node, right);
+            if (cp <= 0) {
+                return;
+            } else {
+                // sink to the left
+                this.arrayRep[rightIndex] = node;
+                this.arrayRep[index] = right;
+                this.sink(rightIndex);
+            }
+        }
     }
 
 }
 
 class Node {
-    constructor(box) {
+    constructor(box, source) {
+        this.source = source;
         this.box = box;
-        this.children = [];
-    }
-
-    addChild(child) {
-        this.children.push(child);
+        this.distTo = Infinity;
     }
 }
 
