@@ -1,7 +1,9 @@
 {
+  "homepage": "http://AllenCaoo.github.io/Pathfind-Visualizer",
   "name": "path-visualizer",
   "version": "0.1.0",
   "private": true,
+  "files": ["googlecf61c613b2bcffcd.html"],
   "dependencies": {
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^11.2.7",
@@ -12,7 +14,14 @@
     "react-scripts": "4.0.3",
     "web-vitals": "^1.1.2"
   },
+  "author": "Allen Cao",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AllenCaoo/Pathfind-Visualizer/issues"
+  },
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
@@ -35,5 +44,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "gh-pages": "^3.2.3"
   }
 }
