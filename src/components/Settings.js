@@ -41,8 +41,8 @@ const Settings = ({nameToAlgs}) => {
     return (
         <div>
             <AlgorithmSelect onChange={changeSelectedAlg} />
-            <Button color='purple' text="Change Start"/>
-            <Button color='purple' text="Change End"/>
+            {/* <Button color='purple' text="Change Start"/> 
+            <Button color='purple' text="Change End"/> */}  {/* To be deployed later*/}
             <Button color='blue' text="Clear" onClick={clear} />
             <Button color='red' text="Stop"/>
             <Button color='green' text="Run" onClick={() => {
