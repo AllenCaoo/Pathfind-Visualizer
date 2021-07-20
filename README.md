@@ -4,6 +4,8 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 Page is still currently in construction; expect some features to not work.
 
+The website is deployed at: https://allencaoo.github.io/Pathfind-Visualizer/ 
+
 ## Available Scripts
 
 In the project directory, you can run:
