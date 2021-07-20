@@ -38,6 +38,27 @@ export function getElementByPos(row, col) {
     return document.getElementById(`${row}-${col}`); 
 }
 
+
+export function distBetweenIds(id1, id2) {
+    let row1 = getRowFromId(id1);
+    let col1 = getColFromId(id1);
+    let row2 = getRowFromId(id2);
+    let col2 = getColFromId(id2);
+    return Math.sqrt((row1 - row2)**2 + (col1 - col2)**2);
+}
+
+
+export function distBetweenBoxes(box1, box2) {
+    let id1 = box1.id;
+    let id2 = box2.id;
+    let row1 = getRowFromId(id1);
+    let col1 = getColFromId(id1);
+    let row2 = getRowFromId(id2);
+    let col2 = getColFromId(id2);
+    return Math.sqrt((row1 - row2)**2 + (col1 - col2)**2);
+}
+
+
 function addToQueue(queue, row, col, soFar, asList) {
     if (row < 0 || row > maxRow) { return; }
     if (col < 0 || col > maxCol) { return; }
@@ -69,5 +90,36 @@ export async function display(queue, path) {
         await sleep(pathMS);
     }
     console.log('Displayed');
+}
+
+
+export class MinHeap {
+    constructor(elements, source) {
+        this.source = new Node(source);
+    }
+
+    compareNodes(node1, node2) {
+        
+    }
+
+    addNode(node) {
+
+    }
+
+    popSmallest() {
+
+    }
+
+}
+
+class Node {
+    constructor(box) {
+        this.box = box;
+        this.children = [];
+    }
+
+    addChild(child) {
+        this.children.push(child);
+    }
 }
 
