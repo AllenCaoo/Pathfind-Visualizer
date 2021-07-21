@@ -38,6 +38,15 @@ export function getElementByPos(row, col) {
     return document.getElementById(`${row}-${col}`); 
 }
 
+// TODO: try weight stuff
+export function getDist(box1, box2) {
+    if (distBetweenBoxes(box1, box2) != 1) {
+        return null; // not connected
+    }
+    return 1;
+}
+
+
 
 export function distBetweenIds(id1, id2) {
     let row1 = getRowFromId(id1);
@@ -92,11 +101,29 @@ export async function display(queue, path) {
     console.log('Displayed');
 }
 
+export function getAllBoxes() {
+    let rows = [];
+    for (let row = 0; row <= maxRow; row++) {
+        let cols = []
+        for (let col = 0; col <= maxCol; col++) {
+            cols.push(document.getElementById(`${row}-${col}`));
+        }
+        rows.push(cols);
+    }
+    return rows;
+}
 
+
+/* Deprecated MinHeap, maybe will be used later
 export class MinHeap {
     constructor(boxes, sourceBox) {
         this.arrayRep = [null]; // 0th position is sentinel
+        this.sourceBox = sourceBox;
         boxes.forEach(box => {
+            let node = new Node(box, sourceBox);
+            if (node === sourceBox) {
+                this.arrayRep = [null, node].concat(this.arrayRep.subarray(1, this.arrayRep.length));
+            }
             this.addNode(new Node(box, sourceBox));
         });
     }
@@ -136,7 +163,7 @@ export class MinHeap {
                 null : this.arrayRep[this.leftChildIndex(index)];
     }
 
-    /* Node added to end of arrayRep, swims up */
+    // Node added to end of arrayRep, swims up //
     addNode(node) {
         this.arrayRep.push(node);
         let k = this.arrayRep.length - 1;
@@ -150,11 +177,18 @@ export class MinHeap {
         }
     }
 
+    addBox(box) {
+        let node = new Node(box, this.sourceBox);
+        this.addNode(node);
+    }
+
     popSmallest() {
         if (!this.isEmpty) {
+            let smallest = this.arrayRep[1];
             this.arrayRep[1] = this.arrayRep[this.arrayRep.length - 1];
             this.arrayRep.pop();
             this.sink(1);
+            return smallest;
         } else {
             return null;
         }
@@ -207,12 +241,12 @@ export class MinHeap {
 
 }
 
-class Node {
-    constructor(box, source) {
+export class Node {
+    constructor(box, sourceBox) {
         this.box = box;
-        this.source = source;
-        this.distTo = box === source ? 0 :Infinity;
+        this.sourceBox = sourceBox;
+        this.distTo = box === sourceBox ? 0 :Infinity;
     }
 }
 
-
+*/
