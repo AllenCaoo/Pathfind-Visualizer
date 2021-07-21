@@ -38,12 +38,30 @@ const Settings = ({nameToAlgs}) => {
         }
     }
 
+    const clearDisplay = () => {
+        for (let row = 0; row <= maxRow; row++) {
+            for (let col = 0; col <= maxCol; col++) {
+                let box = document.getElementById(`${row}-${col}`);
+                if (row === startPos[0] && col === startPos[1]) {
+                    box.style.backgroundColor = "green";
+                } else if (row === endPos[0] && col === endPos[1]) {
+                    box.style.backgroundColor = "red";
+                } else if (box.style.backgroundColor === "black") {
+                    continue;
+                } else {
+                    box.style.backgroundColor = "white";
+                }
+            }
+        }
+    }
+
     return (
         <div>
             <AlgorithmSelect onChange={changeSelectedAlg} />
             {/* <Button color='purple' text="Change Start"/> 
             <Button color='purple' text="Change End"/> */}  {/* To be deployed later*/}
-            <Button color='blue' text="Clear" onClick={clear} />
+            <Button color='blue' text="Clear Display" onClick={clearDisplay} />
+            <Button color='blue' text="Clear All" onClick={clear} />
             <Button color='red' text="Stop (unavailable)"/>  {/* To be deployed later*/}
             <Button color='green' text="Run" onClick={() => {
                 getSelectedAlg()(startPos[0], startPos[1], endPos[0], endPos[1])}
