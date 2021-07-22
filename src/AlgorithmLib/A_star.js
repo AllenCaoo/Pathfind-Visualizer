@@ -30,18 +30,18 @@ function A_star_run(startRow, startCol, endRow, endCol, heuristic=A_star_heurist
             display(visited, path);
             break;
         }
-        relax(box, path, heuristic);
+        relax(box, path, heuristic, source);
     }
     display(visited, []);
     reset();
 }
 
 
-function relax(box, path, heuristic) {
+function relax(box, path, heuristic, source) {
     let adjacents = getAdjacent(getRowFromId(box.id), getColFromId(box.id), visited);
     adjacents.forEach(adj => {
         let pathCopy = path.slice();
-        let newAdjDist = distTo[box] + heuristic(box, adj);
+        let newAdjDist = 1 + distTo[box.id] + heuristic(adj, source);
         let oldAdjDist = distTo[adj.id];
         if (newAdjDist < oldAdjDist) {
             distTo[adj.id] = newAdjDist;
