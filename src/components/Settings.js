@@ -4,6 +4,7 @@ import Orientations from './Orientations';
 import { FaTimes } from 'react-icons/fa';
 import {maxRow, maxCol} from './Board';
 import Controls from './Controls'
+import {hasBackgroundColor, setBackgroundColor} from '../AlgorithmLib/utils';
 export var startPos = [10, 10];
 export var endPos = [10, 45];
 export var startingIcon = <FaTimes style={{color: 'red', cursor: 'pointer'}}/>
@@ -36,11 +37,11 @@ const Settings = ({nameToAlgs}) => {
             for (let col = 0; col <= maxCol; col++) {
                 let box = document.getElementById(`${row}-${col}`);
                 if (row === startPos[0] && col === startPos[1]) {
-                    box.style.backgroundColor = "green";
+                    setBackgroundColor(box, "green");
                 } else if (row === endPos[0] && col === endPos[1]) {
-                    box.style.backgroundColor = "red";
+                    setBackgroundColor(box, "red");
                 } else {
-                    box.style.backgroundColor = "white";
+                    setBackgroundColor(box, "white");
                 }
             }
         }
@@ -51,13 +52,13 @@ const Settings = ({nameToAlgs}) => {
             for (let col = 0; col <= maxCol; col++) {
                 let box = document.getElementById(`${row}-${col}`);
                 if (row === startPos[0] && col === startPos[1]) {
-                    box.style.backgroundColor = "green";
+                    setBackgroundColor(box, "green");
                 } else if (row === endPos[0] && col === endPos[1]) {
-                    box.style.backgroundColor = "red";
-                } else if (box.style.backgroundColor === "black") {
+                    setBackgroundColor(box, "red");
+                } else if (hasBackgroundColor("black")) {
                     continue;
                 } else {
-                    box.style.backgroundColor = "white";
+                    setBackgroundColor(box, "white");
                 }
             }
         }

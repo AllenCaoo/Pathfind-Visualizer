@@ -8,6 +8,13 @@ var defaultOrientation = {
     'W': 4
 }
 
+export function hasBackgroundColor(box, color) {
+    return box.style.backgroundColor === color;
+}
+
+export function setBackgroundColor(box, color) {
+    box.style.backgroundColor = color;
+}
 
 export function getAdjacent(startRow, startCol, soFar, orientationalJson) {
     /* Orientation:
@@ -128,14 +135,14 @@ function sleep(ms) {
 export async function display(queue, path) {
     let ms = 0;
     for (let i = 0; i < queue.length; i++) {
-        if (queue[i].style.backgroundColor === "white") {  // don't override green or red
-            queue[i].style.backgroundColor = "blue";
+        if (hasBackgroundColor(queue[i], "white")) {  // don't override green or red
+            setBackgroundColor(queue[i], "blue");
         }
         await sleep(ms);
     }
     let pathMS = 20;
     for (let i = 0; i < path.length; i++) {
-        path[i].style.backgroundColor = "yellow";
+        setBackgroundColor(path[i], "yellow");
         await sleep(pathMS);
     }
     console.log('Displayed');

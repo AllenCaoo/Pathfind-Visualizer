@@ -1,4 +1,5 @@
 import {React, useState} from 'react';
+import {hasBackgroundColor, setBackgroundColor} from '../AlgorithmLib/utils';
 
 var down = false;
 const Box = ({row, col, color}) => {
@@ -14,11 +15,11 @@ const Box = ({row, col, color}) => {
     }
 
     var toggleState = () => {
-        let currColor = document.getElementById(`${row}-${col}`).style.backgroundColor;
-        if (currColor === "white") {
-            document.getElementById(`${row}-${col}`).style.backgroundColor = "black";
-        } else if (currColor === "black") {
-            document.getElementById(`${row}-${col}`).style.backgroundColor = "white";
+        let box = document.getElementById(`${row}-${col}`)
+        if (hasBackgroundColor(box, "white")) {
+            setBackgroundColor(box, "black");
+        } else if (hasBackgroundColor(box, "black")) {
+            setBackgroundColor(box, "white");
         }
     }
 
