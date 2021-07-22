@@ -55,7 +55,7 @@ const Settings = ({nameToAlgs}) => {
                     setBackgroundColor(box, "green");
                 } else if (row === endPos[0] && col === endPos[1]) {
                     setBackgroundColor(box, "red");
-                } else if (hasBackgroundColor("black")) {
+                } else if (hasBackgroundColor(box, "black")) {
                     continue;
                 } else {
                     setBackgroundColor(box, "white");
