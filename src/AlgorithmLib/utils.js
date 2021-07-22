@@ -47,6 +47,15 @@ export function getDist(box1, box2) {
 }
 
 
+export function A_star_heuristic(box, targetBox) {
+    let row1 = getRowFromId(box);
+    let col1 = getColFromId(box);
+    let row2 = getRowFromId(targetBox);
+    let col2 = getColFromId(targetBox);
+    return 2*(Math.abs(col2 - col1) + Math.abs(row2 - row1));
+}
+
+
 
 export function distBetweenIds(id1, id2) {
     let row1 = getRowFromId(id1);
