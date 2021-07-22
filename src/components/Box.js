@@ -1,16 +1,20 @@
 import {React, useState} from 'react';
 
+var down = false;
 const Box = ({row, col, color}) => {
 
-    var [_, toggleState] = useState(false);
+    var handleMouseDown = (e) => {
+        e.preventDefault();
+        down = true;
+        toggleState();
+    }
 
+    var handleMouseUp = (e) => {
+        down = false;
+    }
 
-    toggleState = () => {
+    var toggleState = () => {
         let currColor = document.getElementById(`${row}-${col}`).style.backgroundColor;
-        // if (selectingBegin) {
-        //     let startBox = document.getElementById(`${startPos[0]}-${startPos[1]}`);
-        //     startBox.style.backgroundColor = "white";
-        //     startPos = [row, col];
         if (currColor === "white") {
             document.getElementById(`${row}-${col}`).style.backgroundColor = "black";
         } else if (currColor === "black") {
@@ -23,7 +27,9 @@ const Box = ({row, col, color}) => {
             className="box" 
             id={row + "-" + col}
             style={{backgroundColor: color}} 
-            onClick={ toggleState } 
+            onMouseDown={ (e) => handleMouseDown(e) }   
+            onMouseUp={ (e) => handleMouseUp(e) }
+            onMouseEnter={ (e) => { if (down) { toggleState(e) } } }
             >
         </td>
     )
