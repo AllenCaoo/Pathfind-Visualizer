@@ -1,7 +1,7 @@
 import Header from './components/Header';
 import Settings from './components/Settings';
 import Board from './components/Board';
-import {DFS, BFS, Dijkstras, A_star} from './Algorithms';
+import {DFS, BFS, Dijkstras, A_star, Greedy} from './Algorithms';
 import SubHeader from './components/SubHeader';
 
 function App() {
@@ -10,7 +10,8 @@ function App() {
     "DI": Dijkstras,
     "DFS": DFS,
     "BFS": BFS,
-    "A*": A_star
+    "A*": A_star,
+    "GREEDY": Greedy
   }
 
   return ( // Has to return SINGLE element

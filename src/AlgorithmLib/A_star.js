@@ -2,11 +2,12 @@ import {getAdjacent, getRowFromId, getColFromId, getElementByPos, display,
         getAllBoxes, biasManhattan} from './utils';
 
 
-var visited = []
-var distTo = {}
-// var edgeTo = {} // may not be necessary
-var stack = []
-function A_star_run(startRow, startCol, endRow, endCol, orientationalJson, heuristic=biasManhattan) {
+function A_star_run(startRow, startCol, endRow, endCol, 
+        orientationalJson, heuristic=biasManhattan, relax=AStarRelax) {
+    var visited = []
+    var distTo = {}
+    // var edgeTo = {} // may not be necessary
+    var stack = []
     var source = getElementByPos(startRow, startCol);
     var target = getElementByPos(endRow, endCol);
     let allBoxes = getAllBoxes();
@@ -31,15 +32,14 @@ function A_star_run(startRow, startCol, endRow, endCol, orientationalJson, heuri
             display(visited, path);
             break;
         }
-        relax(box, path, heuristic, target, orientationalJson);
+        relax(box, path, heuristic, target, orientationalJson, visited, distTo, stack);
     }
     display(visited, []);
-    reset();
 }
 
 
-function relax(box, path, heuristic, target, orientationList) {
-    let adjacents = getAdjacent(getRowFromId(box.id), getColFromId(box.id), visited, orientationList);
+function AStarRelax(box, path, heuristic, target, orientationalJson, visited, distTo, stack) {
+    let adjacents = getAdjacent(getRowFromId(box.id), getColFromId(box.id), visited, orientationalJson);
     adjacents.forEach(adj => {
         let pathCopy = path.slice();
         let newAdjDist = 1 + distTo[box.id] + heuristic(adj, target);
@@ -56,12 +56,6 @@ function relax(box, path, heuristic, target, orientationList) {
             return distTo[path1[path1.length - 1].id] - distTo[path2[path2.length - 1].id];
         });
     } 
-}
-
-function reset() {
-    visited = [];
-    distTo = {};
-    stack = []
 }
 
 export default A_star_run;

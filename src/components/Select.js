@@ -8,9 +8,10 @@ export const AlgorithmSelect = ( { color, onChange } ) => {
             <select className='alg-slct' id='algorithms' style={{backgroundColor: color}}
                 onChange={(evt) => onChange(evt.target.value)} >
                 <option value="DI">Dijkstra's</option>
-                <option value="A*">A*</option>
+                <option value="A*">A* (Best First Search)</option>
                 <option value="DFS">Depth First Search</option>
                 <option value="BFS">Breadth First Search</option>
+                <option value="GREEDY">Greedy Best First Search</option>
             </select>
         </span>
     )
