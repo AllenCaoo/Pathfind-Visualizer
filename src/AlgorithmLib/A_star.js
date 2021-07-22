@@ -16,10 +16,10 @@ function A_star_run(startRow, startCol, endRow, endCol, heuristic=A_star_heurist
             // edgeTo[allBoxes[row][col].id] = null;
         }
     }
-    stack.push([source])
+    stack.push([source]);
     distTo[source.id] = 0;
     // edgeTo[source.id] = null;
-    while (stack) {
+    while (stack.length != 0) {
         let path = stack[0];
         stack.shift();
         let box = path[path.length - 1];
