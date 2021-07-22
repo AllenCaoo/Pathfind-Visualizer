@@ -35,6 +35,12 @@ body {
   font-family: 'Merriweather', sans-serif;
 }
 
+.note {
+  font-size: 12px;
+  margin-left: 50px;
+  color: purple;
+}
+
 .btn {
   display: inline-block;
   background: #000;
@@ -65,7 +71,7 @@ body {
   text-align-last: center;
 }
 
-.dir-slct {
+.ori-slct {
   display: inline-block;
   background: #000;
   color: #fff;
@@ -95,13 +101,15 @@ body {
   font-size: 1.5em;
 }
 
-.directions {
+.orientations {
   border-radius: 5px;
   margin: 8px;
 }
 
 .dir-text {
   margin: 5px;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
 }
 
 

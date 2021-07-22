@@ -16,10 +16,10 @@ export const AlgorithmSelect = ( { color, onChange } ) => {
     )
 }
 
-export const DirectionSelect = ( { color, selected, number, onChange } ) => {
+export const OrientationSelect = ( { color, selected, number, onChange } ) => {
     
     return (
-        <select className='dir-slct' id={`orientation-${number}`} style={{backgroundColor: color}} 
+        <select className='ori-slct' id={`orientation-${number}`} style={{backgroundColor: color}} 
             defaultValue={selected} onChange={(evt) => onChange(evt.target.value, number)}>
             <option value="N">North</option>
             <option value="E">East</option>

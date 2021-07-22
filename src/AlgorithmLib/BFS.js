@@ -1,6 +1,6 @@
 import {getAdjacent, getRowFromId, getColFromId, getElementByPos, display} from './utils';
 
-function BFSRun(startRow, startCol, endRow, endCol) {
+function BFSRun(startRow, startCol, endRow, endCol, orientationList) {
     let queue = [];
     let marked = []; // marked will include boxes from scouting adjacents (for performance)
     let visited = []; // visited will not include boxes from scouting adjacents
@@ -19,7 +19,7 @@ function BFSRun(startRow, startCol, endRow, endCol) {
             display(visited, path);
             break;
         }
-        let adjacents = getAdjacent(startRow, startCol, marked);
+        let adjacents = getAdjacent(startRow, startCol, marked, orientationList);
         adjacents.forEach(box => {
             let newPath = path.slice();
             newPath.push(box);

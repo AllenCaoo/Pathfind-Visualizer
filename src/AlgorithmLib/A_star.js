@@ -6,7 +6,7 @@ var visited = []
 var distTo = {}
 // var edgeTo = {} // may not be necessary
 var stack = []
-function A_star_run(startRow, startCol, endRow, endCol, heuristic=biasManhattan) {
+function A_star_run(startRow, startCol, endRow, endCol, orientationalJson, heuristic=biasManhattan) {
     var source = getElementByPos(startRow, startCol);
     var target = getElementByPos(endRow, endCol);
     let allBoxes = getAllBoxes();
@@ -31,15 +31,15 @@ function A_star_run(startRow, startCol, endRow, endCol, heuristic=biasManhattan)
             display(visited, path);
             break;
         }
-        relax(box, path, heuristic, target);
+        relax(box, path, heuristic, target, orientationalJson);
     }
     display(visited, []);
     reset();
 }
 
 
-function relax(box, path, heuristic, target) {
-    let adjacents = getAdjacent(getRowFromId(box.id), getColFromId(box.id), visited);
+function relax(box, path, heuristic, target, orientationList) {
+    let adjacents = getAdjacent(getRowFromId(box.id), getColFromId(box.id), visited, orientationList);
     adjacents.forEach(adj => {
         let pathCopy = path.slice();
         let newAdjDist = 1 + distTo[box.id] + heuristic(adj, target);

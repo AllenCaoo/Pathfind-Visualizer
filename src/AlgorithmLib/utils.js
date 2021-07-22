@@ -1,20 +1,51 @@
 import {maxRow, maxCol} from '../components/Board';
 
+var numOrientations = 4;
+var defaultOrientation = {
+    'N': 1,
+    'E': 2,
+    'S': 3,
+    'W': 4
+}
 
 
-export function getAdjacent(startRow, startCol, soFar) {
+export function getAdjacent(startRow, startCol, soFar, orientationalJson) {
     /* Orientation:
             A
         D start B
             C
     A -> B -> C -> D
     */
+   /* If invalid orientation, then orientation is NESW */
+   function getKeyByValue(object, value) {
+    return Object.keys(object).find(key => object[key] === value);
+    }
+  
+    var oriToRowCol = {
+        'N': [startRow - 1, startCol],
+        'E': [startRow, startCol + 1],
+        'S': [startRow + 1, startCol],
+        'W': [startRow, startCol - 1]
+    }
     let lst = [];
-    addToQueue(lst, startRow - 1, startCol, soFar, false);
-    addToQueue(lst, startRow, startCol + 1, soFar, false);
-    addToQueue(lst, startRow + 1, startCol, soFar, false);
-    addToQueue(lst, startRow, startCol - 1, soFar, false);
+    for (let i = 1; i <= numOrientations; i++) {
+        let ori = getKeyByValue(orientationalJson, i);
+        let coords = oriToRowCol[ori];
+        addToQueue(lst, coords[0], coords[1], soFar, false);
+    }
     return lst;
+}
+
+export function orientationListToJson(orientationList) {
+    let json = []
+    for (let i = 1; i <= orientationList.length; i++) {
+        json[orientationList[i - 1]] = i;
+    }
+    if (Object.keys(json).length < numOrientations) {
+        return defaultOrientation;
+    } else {
+        return json;
+    }
 }
 
 export function getRowFromId(id) {
@@ -120,8 +151,7 @@ export function getAllBoxes() {
         rows.push(cols);
     }
     return rows;
-}
-
+} 
 
 /* Deprecated MinHeap, maybe will be used later
 export class MinHeap {

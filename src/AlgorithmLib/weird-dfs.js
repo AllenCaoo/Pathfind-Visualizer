@@ -3,7 +3,7 @@ import {getAdjacent, getRowFromId, getColFromId, getElementByPos, display} from 
 
 var stack = [];
 var visited = [];
-function DFSRun(startRow, startCol, endRow, endCol) {
+function DFSRun(startRow, startCol, endRow, endCol, orientationList) {
     let firstBox = getElementByPos(startRow, startCol)
     stack.push([firstBox]);
     visited.push(firstBox);
@@ -17,7 +17,7 @@ function DFSRun(startRow, startCol, endRow, endCol) {
             display(visited, path);
             break;
         }
-        let adjacents = getAdjacent(startRow, startCol, visited);
+        let adjacents = getAdjacent(startRow, startCol, visited, orientationList);
         adjacents.forEach(box => {
             let newPath = path.slice();
             newPath.push(box);
