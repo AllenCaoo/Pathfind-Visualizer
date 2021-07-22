@@ -2,8 +2,8 @@ import React from 'react';
 import Box from './Box';
 import {startPos, endPos, startingIcon} from './Settings';
 
-export const maxRow = 16;
-export const maxCol = 50;
+export const maxRow = 20;
+export const maxCol = 55;
 
 function initBoard() {
     let rows = [];

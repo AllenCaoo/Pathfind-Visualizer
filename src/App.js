@@ -16,10 +16,7 @@ function App() {
   return ( // Has to return SINGLE element
     <div className="App">
       <Header/>
-      <SubHeader text="Page is currently under construction. Some features will be unavailable." 
-        color="purple"/>
       <Settings nameToAlgs={nameToAlgs} />
-      <SubHeader text="Click on boxes to create walls!" color="black" />
       <Board/>
     </div>
   );

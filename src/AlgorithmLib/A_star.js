@@ -1,12 +1,12 @@
 import {getAdjacent, getRowFromId, getColFromId, getElementByPos, display,
-        getAllBoxes, A_star_heuristic} from './utils';
+        getAllBoxes, biasManhattan} from './utils';
 
 
 var visited = []
 var distTo = {}
 // var edgeTo = {} // may not be necessary
 var stack = []
-function A_star_run(startRow, startCol, endRow, endCol, heuristic=A_star_heuristic) {
+function A_star_run(startRow, startCol, endRow, endCol, heuristic=biasManhattan) {
     var source = getElementByPos(startRow, startCol);
     var target = getElementByPos(endRow, endCol);
     let allBoxes = getAllBoxes();

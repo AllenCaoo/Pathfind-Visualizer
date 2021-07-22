@@ -3,8 +3,8 @@ import Button from './Button';
 import AlgorithmSelect from './AlgorithmSelect';
 import { FaTimes } from 'react-icons/fa';
 import {maxRow, maxCol} from './Board';
-export var startPos = [8, 8];
-export var endPos = [8, 42];
+export var startPos = [10, 10];
+export var endPos = [10, 45];
 export var startingIcon = <FaTimes style={{color: 'red', cursor: 'pointer'}}/>
 
 
@@ -16,7 +16,6 @@ const Settings = ({nameToAlgs}) => {
 
     changeSelectedAlg = (alg) => {
         selectedAlg = alg;
-        console.log('algorithm changed to: ' + alg);
     }
 
     const getSelectedAlg = () => {
@@ -55,6 +54,13 @@ const Settings = ({nameToAlgs}) => {
         }
     }
 
+    function handleOnClickRun() {
+        // TODO: if not already running:
+        var scrollingElement = (document.scrollingElement || document.body);
+        scrollingElement.scrollTop = scrollingElement.scrollHeight;
+        getSelectedAlg()(startPos[0], startPos[1], endPos[0], endPos[1]);
+    }
+
     return (
         <div>
             <AlgorithmSelect onChange={changeSelectedAlg} />
@@ -62,9 +68,10 @@ const Settings = ({nameToAlgs}) => {
             <Button color='purple' text="Change End"/> */}  {/* To be deployed later*/}
             <Button color='blue' text="Clear Display" onClick={clearDisplay} />
             <Button color='blue' text="Clear All" onClick={clear} />
+            <br></br>
             <Button color='red' text="Stop (unavailable)"/>  {/* To be deployed later*/}
             <Button color='green' text="Run" onClick={() => {
-                getSelectedAlg()(startPos[0], startPos[1], endPos[0], endPos[1])}
+                handleOnClickRun()}
             }/>
         </div>
     )

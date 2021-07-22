@@ -46,12 +46,14 @@ export function getDist(box1, box2) {
     return 1;
 }
 
-export function A_star_heuristic(box, targetBox) {
+/* Bias in wanting puts more weight on difference in rows */
+export function biasManhattan(box, targetBox) {
     let row1 = getRowFromId(box.id);
     let col1 = getColFromId(box.id);
     let row2 = getRowFromId(targetBox.id);
     let col2 = getColFromId(targetBox.id);
-    return 2*(Math.abs(col2 - col1) + Math.abs(row2 - row1));
+    return 2*(Math.abs(col2 - col1) + 5*Math.abs(row2 - row1)); 
+    // scaled by 3 for better results
 }
 
 

@@ -15,8 +15,7 @@ const AlgorithmSelect = ( { color, onChange } ) => {
 }
 
 AlgorithmSelect.defaultProps = {
-    color: 'black',
-    onChange: console.log("nothing happened")
+    color: 'black'
 }
 
 export default AlgorithmSelect
