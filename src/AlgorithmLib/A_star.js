@@ -8,6 +8,7 @@ var distTo = {}
 var stack = []
 function A_star_run(startRow, startCol, endRow, endCol, heuristic=A_star_heuristic) {
     var source = getElementByPos(startRow, startCol);
+    var target = getElementByPos(endRow, endCol);
     let allBoxes = getAllBoxes();
     for (let row = 0; row < allBoxes.length; row++) {
         for (let col = 0; col < allBoxes[0].length; col++) {
@@ -30,18 +31,18 @@ function A_star_run(startRow, startCol, endRow, endCol, heuristic=A_star_heurist
             display(visited, path);
             break;
         }
-        relax(box, path, heuristic, source);
+        relax(box, path, heuristic, target);
     }
     display(visited, []);
     reset();
 }
 
 
-function relax(box, path, heuristic, source) {
+function relax(box, path, heuristic, target) {
     let adjacents = getAdjacent(getRowFromId(box.id), getColFromId(box.id), visited);
     adjacents.forEach(adj => {
         let pathCopy = path.slice();
-        let newAdjDist = 1 + distTo[box.id] + heuristic(adj, source);
+        let newAdjDist = 1 + distTo[box.id] + heuristic(adj, target);
         let oldAdjDist = distTo[adj.id];
         if (newAdjDist < oldAdjDist) {
             distTo[adj.id] = newAdjDist;
