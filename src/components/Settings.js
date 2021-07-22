@@ -1,8 +1,9 @@
 import {React, useState} from 'react';
-import Button from './Button';
-import AlgorithmSelect from './AlgorithmSelect';
+import {AlgorithmSelect} from './Select';
+import Directions from './Directions';
 import { FaTimes } from 'react-icons/fa';
 import {maxRow, maxCol} from './Board';
+import Controls from './Controls'
 export var startPos = [10, 10];
 export var endPos = [10, 45];
 export var startingIcon = <FaTimes style={{color: 'red', cursor: 'pointer'}}/>
@@ -14,15 +15,23 @@ const Settings = ({nameToAlgs}) => {
                                            // TODO: get the first option instead, 
                                            // needs to wait after construction
 
+    var [orientation, changeOrientation] = useState(['N', 'E', 'S', 'W']);
+
     changeSelectedAlg = (alg) => {
         selectedAlg = alg;
+    }
+
+    changeOrientation = (direction, number) => {
+        let index = parseInt(number);
+        orientation[index - 1] = direction;
+        console.log(orientation);
     }
 
     const getSelectedAlg = () => {
         return nameToAlgs[selectedAlg];
     }
 
-    const clear = () => {
+    const clearAll = () => {
         for (let row = 0; row <= maxRow; row++) {
             for (let col = 0; col <= maxCol; col++) {
                 let box = document.getElementById(`${row}-${col}`);
@@ -56,23 +65,35 @@ const Settings = ({nameToAlgs}) => {
 
     function handleOnClickRun() {
         // TODO: if not already running:
-        var scrollingElement = (document.scrollingElement || document.body);
-        scrollingElement.scrollTop = scrollingElement.scrollHeight;
+        window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
         getSelectedAlg()(startPos[0], startPos[1], endPos[0], endPos[1]);
     }
 
     return (
         <div>
-            <AlgorithmSelect onChange={changeSelectedAlg} />
-            {/* <Button color='purple' text="Change Start"/> 
-            <Button color='purple' text="Change End"/> */}  {/* To be deployed later*/}
-            <Button color='blue' text="Clear Display" onClick={clearDisplay} />
-            <Button color='blue' text="Clear All" onClick={clear} />
+            <div>
+                <span className="dir-text">
+                    Please select a pathfinding algorithm: 
+                </span>
+                <AlgorithmSelect onChange={ changeSelectedAlg } />
+                <br></br>
+                <br></br>
+                <span className="dir-text">
+                    Please select tie-breaking orientation:
+                </span>
+                <Directions onChange={changeOrientation}/>
+            </div>
             <br></br>
-            <Button color='red' text="Stop (unavailable)"/>  {/* To be deployed later*/}
-            <Button color='green' text="Run" onClick={() => {
-                handleOnClickRun()}
-            }/>
+            <div className='d'>
+                <span className="dir-text">
+                    Have Fun!
+                </span>
+                <Controls 
+                    clearDisplay={clearDisplay} 
+                    clearAll={clearAll} 
+                    handleOnClickRun={handleOnClickRun} 
+                />
+            </div>
         </div>
     )
 }

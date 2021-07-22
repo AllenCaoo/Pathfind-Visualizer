@@ -18,6 +18,7 @@ function App() {
       <Header/>
       <Settings nameToAlgs={nameToAlgs} />
       <Board/>
+      <br></br>
     </div>
   );
 }
