@@ -72,7 +72,7 @@ const Settings = ({nameToAlgs}) => {
 
     return (
         <div>
-            <div>
+            <div className="settings">
                 <span className="dir-text">
                     Please select a pathfinding algorithm: 
                 </span>
@@ -89,7 +89,7 @@ const Settings = ({nameToAlgs}) => {
                 <hr></hr>
             </div>
             <br></br>
-            <div className='d'>
+            <div className='playground'>
                 <span className="dir-text">
                     Have Fun!
                 </span>

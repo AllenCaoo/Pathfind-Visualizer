@@ -1,5 +1,6 @@
-import React from 'react'
-import Button from './Button'
+import React from 'react';
+import Button from './Button';
+import CheckBox from './CheckBox';
 
 const Controls = ({clearDisplay, clearAll, handleOnClickRun}) => {
     return (
@@ -11,6 +12,7 @@ const Controls = ({clearDisplay, clearAll, handleOnClickRun}) => {
             <Button color='green' text="Run" onClick={() => {
                 handleOnClickRun();}
             }/>
+            <CheckBox className='checkbox' id="show-display" text="Fancy Graphics (may reduce performance)" />
         </span>
     )
 }
