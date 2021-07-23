@@ -134,9 +134,13 @@ function sleep(ms) {
 
 export async function display(queue, path) {
     let ms = 0;
+    let r = 64
+    let g = 224;
+    let b = 208
     for (let i = 0; i < queue.length; i++) {
         if (hasBackgroundColor(queue[i], "white")) {  // don't override green or red
-            setBackgroundColor(queue[i], "blue");
+            setBackgroundColor(queue[i], `rgb(${r}, ${g}, ${b})`);
+            setTimeout(function () { overlapDisplay(queue[i], r - 1, g - 3, b - 3); }, 500);
         }
         await sleep(ms);
     }
@@ -146,6 +150,16 @@ export async function display(queue, path) {
         await sleep(pathMS);
     }
     console.log('Displayed');
+}
+
+/* rgb(64, 187, 224), rgb(56, 164, 197), rgb(48, 134, 160), rgb(48, 106, 160); */
+async function overlapDisplay(box, r, g, b) {
+    if (r < 20 || g <= 50 || b <= 50 || hasBackgroundColor(box, "yellow")) {
+        return;
+    }
+    box.style.backgroundColor = `rgb(${r}, ${g}, ${b})`;
+    await sleep(100);
+    await overlapDisplay(box, r - 2, g - 6, b - 6);
 }
 
 export function getAllBoxes() {

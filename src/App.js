@@ -17,6 +17,7 @@ function App() {
   return ( // Has to return SINGLE element
     <div className="App">
       <Header/>
+      <hr></hr>
       <Settings nameToAlgs={nameToAlgs} />
       <Board/>
       <br></br>

@@ -77,15 +77,16 @@ const Settings = ({nameToAlgs}) => {
                     Please select a pathfinding algorithm: 
                 </span>
                 <AlgorithmSelect onChange={ changeSelectedAlg } />
-                <br></br>
+                <hr></hr>
                 <br></br>
                 <span className="dir-text">
-                    Please select tie-breaking orientation:
+                    Please select orientation tie-break rule:
                 </span>
                 <Orientations onChange={changeOrientation}/>
                 <br></br>
                 <span className="note"> Note: NESW will be chosen if 
                 invalid orientation sequence is selected</span>
+                <hr></hr>
             </div>
             <br></br>
             <div className='d'>

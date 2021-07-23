@@ -3,7 +3,7 @@ import React from 'react'
 const Header = () => {
     return (
         <header className="header">
-            <h1>Path Visualizer</h1>
+            <h1>Pathfind Visualizer</h1>
         </header>
     )
 }
