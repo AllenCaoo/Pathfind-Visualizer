@@ -2,7 +2,7 @@ import A_star_run from './A_star';
 import {getAdjacent, getRowFromId, getColFromId} from './utils';
 
 function GreedyRun(startRow, startCol, endRow, endCol, orientationList) {
-    A_star_run(startRow, startCol, endRow, endCol, orientationList, undefined, greedyRelax);
+    return A_star_run(startRow, startCol, endRow, endCol, orientationList, undefined, greedyRelax);
 }
 
 const greedyRelax = (box, path, heuristic, target, orientationalJson, visited, distTo, stack) => {

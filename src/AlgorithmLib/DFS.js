@@ -4,8 +4,14 @@ import {getAdjacent, getRowFromId, getColFromId, getElementByPos, display} from 
 var visited = [];
 function DFSRun(startRow, startCol, endRow, endCol, orientationalJson) {
     let DFSPath = DFSHelper(startRow, startCol, endRow, endCol, [], orientationalJson);
-    DFSPath ? display(visited, DFSPath) : display(visited, []);
+    let rev;
+    if (DFSPath) {
+        rev = {"visited": visited, "path": path};
+    } else { 
+        rev = {"visited": visited, "path": []};
+    }
     resetDFS();
+    return rev;
 }
 
 function DFSHelper(startRow, startCol, endRow, endCol, path, orientationalJson) {

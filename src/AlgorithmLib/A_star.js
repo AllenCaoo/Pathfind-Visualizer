@@ -29,12 +29,11 @@ function A_star_run(startRow, startCol, endRow, endCol,
         }
         visited.push(box);
         if (getRowFromId(box.id) === endRow && getColFromId(box.id) === endCol) {
-            display(visited, path);
-            break;
+            return {"visited": visited, "path": path};
         }
         relax(box, path, heuristic, target, orientationalJson, visited, distTo, stack);
     }
-    display(visited, []);
+    return {"visited": visited, "path": []};
 }
 
 

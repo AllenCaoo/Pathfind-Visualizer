@@ -1,6 +1,7 @@
 import {React, useState} from 'react';
 import {AlgorithmSelect} from './Select';
 import Orientations from './Orientations';
+import {Dijkstras, DFS, BFS, A_star, Greedy, Engine} from '../Engine';
 import { FaTimes } from 'react-icons/fa';
 import {maxRow, maxCol} from './Board';
 import Controls from './Controls'
@@ -10,13 +11,23 @@ export var endPos = [10, 45];
 export var startingIcon = <FaTimes style={{color: 'red', cursor: 'pointer'}}/>
 
 
-const Settings = ({nameToAlgs}) => {
+const nameToAlgs = {
+    "DI": Dijkstras,
+    "DFS": DFS,
+    "BFS": BFS,
+    "A*": A_star,
+    "GREEDY": Greedy
+  }
+
+const Settings = () => {
 
     var [selectedAlg, changeSelectedAlg] = useState('DI'); 
                                            // TODO: get the first option instead, 
                                            // needs to wait after construction
 
     var [orientationList, changeOrientation] = useState(['N', 'E', 'S', 'W']);
+
+    var [willDisplayFancy, toggleFancy] = useState(false);
 
     changeSelectedAlg = (alg) => {
         selectedAlg = alg;
@@ -26,6 +37,10 @@ const Settings = ({nameToAlgs}) => {
         let index = parseInt(number);
         orientationList[index - 1] = orientation;
         console.log(orientation);
+    }
+
+    toggleFancy = (boxChecked) => {
+        willDisplayFancy = boxChecked;
     }
 
     const getSelectedAlg = () => {
@@ -67,7 +82,13 @@ const Settings = ({nameToAlgs}) => {
     function handleOnClickRun() {
         // TODO: if not already running:
         window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
-        getSelectedAlg()(startPos[0], startPos[1], endPos[0], endPos[1], orientationList);
+        let engine = new Engine(getSelectedAlg(), startPos[0], startPos[1], 
+                                endPos[0], endPos[1], orientationList, willDisplayFancy);
+        engine.run();
+    }
+
+    function handleOnCheck(boxChecked) {
+        toggleFancy(boxChecked)
     }
 
     return (
@@ -94,9 +115,10 @@ const Settings = ({nameToAlgs}) => {
                     Have Fun!
                 </span>
                 <Controls 
-                    clearDisplay={ clearDisplay } 
-                    clearAll={ clearAll } 
-                    handleOnClickRun={ handleOnClickRun } 
+                    redFunc={ clearDisplay } 
+                    blueFunc={ clearAll } 
+                    greenFunc={ handleOnClickRun } 
+                    checkFunc={ handleOnCheck }
                 />
             </div>
         </div>

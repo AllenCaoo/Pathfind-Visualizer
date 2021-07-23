@@ -132,6 +132,7 @@ function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
+/* Also in Engine class */
 export async function display(queue, path) {
     let ms = 0;
     let r = 64
@@ -151,6 +152,7 @@ export async function display(queue, path) {
     }
     console.log('Displayed');
 }
+
 
 /* rgb(64, 187, 224), rgb(56, 164, 197), rgb(48, 134, 160), rgb(48, 106, 160); */
 async function overlapDisplay(box, r, g, b) {

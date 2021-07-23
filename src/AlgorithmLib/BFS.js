@@ -16,8 +16,7 @@ function BFSRun(startRow, startCol, endRow, endCol, orientationList) {
         startRow = getRowFromId(node.id);
         startCol = getColFromId(node.id);
         if (startRow === endRow && startCol === endCol) {
-            display(visited, path);
-            break;
+            return {"visited": visited, "path": path};
         }
         let adjacents = getAdjacent(startRow, startCol, marked, orientationList);
         adjacents.forEach(box => {
@@ -27,7 +26,7 @@ function BFSRun(startRow, startCol, endRow, endCol, orientationList) {
             marked.push(box);
         });
     }
-    display(visited, []);
+    return {"visited": visited, "path": []};
 }
 
 export default BFSRun;
