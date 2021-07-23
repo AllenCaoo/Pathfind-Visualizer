@@ -115,8 +115,8 @@ const Settings = () => {
                     Have Fun!
                 </span>
                 <Controls 
-                    redFunc={ clearDisplay } 
-                    blueFunc={ clearAll } 
+                    blueFunc={ clearDisplay }
+                    redFunc={ clearAll }  
                     greenFunc={ handleOnClickRun } 
                     checkFunc={ handleOnCheck }
                 />
