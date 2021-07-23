@@ -1,17 +1,18 @@
 import {React, useState} from 'react';
 import {hasBackgroundColor, setBackgroundColor} from '../AlgorithmLib/utils';
 
-var down = false;
-const Box = ({row, col, color}) => {
+var isMouseDown = false;
+const Box = ({row, col, color, canDrawOn}) => {
 
     var handleMouseDown = (e) => {
         e.preventDefault();
-        down = true;
-        toggleState();
+        if (canDrawOn()) {
+            isMouseDown = true;
+        }
     }
 
     var handleMouseUp = (e) => {
-        down = false;
+        isMouseDown = false;
     }
 
     var toggleState = () => {
@@ -29,15 +30,16 @@ const Box = ({row, col, color}) => {
             id={row + "-" + col}
             style={{backgroundColor: color}} 
             onMouseDown={ (e) => handleMouseDown(e) }   
-            onMouseUp={ (e) => handleMouseUp(e) }
-            onMouseEnter={ (e) => { if (down) { toggleState(e) } } }
+            onMouseUp={ (e) =>  handleMouseUp(e) }
+            onMouseEnter={ (e) => { if (isMouseDown) toggleState(); } }
             >
         </td>
     )
 }
 
 Box.defaultProps = {
-    color: 'white'
+    color: 'white',
+    canDrawOn: function(e) { e.preventDefault(); return false; }
 }
 
 export default Box

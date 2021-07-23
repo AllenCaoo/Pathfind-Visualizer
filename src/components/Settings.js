@@ -21,7 +21,7 @@ const nameToAlgs = {
 
 const defaultOrientation = ['N', 'E', 'S', 'W'];
 
-const Settings = () => {
+const Settings = ({ blueFunc, redFunc, greenFunc }) => {
 
     var [selectedAlg, setSelectedAlg] = useState('DI'); 
                                            // TODO: get the first option instead, 
@@ -30,15 +30,6 @@ const Settings = () => {
     var [orientationList, setOrientation] = useState(defaultOrientation);
 
     var [willDisplayFancy, toggleFancy] = useState(false);
-
-    var [engine, setEngine] = useState(null);
-
-    /* will only be called after initial rendering; initalizes engine */
-    useEffect(() => {
-        setEngine(new Engine(getSelectedAlg(), startPos[0], startPos[1], 
-        endPos[0], endPos[1], orientationList, willDisplayFancy));
-    }, [])
-    
 
     setSelectedAlg = (alg) => {
         selectedAlg = alg;
@@ -54,62 +45,26 @@ const Settings = () => {
         willDisplayFancy = boxChecked;
     }
 
-    setEngine = (newEngine) => {
-        engine = newEngine;
-    }
-
     const getSelectedAlg = () => {
         return nameToAlgs[selectedAlg];
     }
 
-    const clearAll = () => {
-        if (!engine.isRunning()) {
-            for (let row = 0; row <= maxRow; row++) {
-                for (let col = 0; col <= maxCol; col++) {
-                    let box = document.getElementById(`${row}-${col}`);
-                    if (row === startPos[0] && col === startPos[1]) {
-                        setBackgroundColor(box, "green");
-                    } else if (row === endPos[0] && col === endPos[1]) {
-                        setBackgroundColor(box, "red");
-                    } else {
-                        setBackgroundColor(box, "white");
-                    }
-                }
-            }
-        }
+    const handleClearAll = () => {
+        redFunc();
     }
 
-    const clearDisplay = () => {
-        if (!engine.isRunning()) {
-            for (let row = 0; row <= maxRow; row++) {
-                for (let col = 0; col <= maxCol; col++) {
-                    let box = document.getElementById(`${row}-${col}`);
-                    if (row === startPos[0] && col === startPos[1]) {
-                        setBackgroundColor(box, "green");
-                    } else if (row === endPos[0] && col === endPos[1]) {
-                        setBackgroundColor(box, "red");
-                    } else if (hasBackgroundColor(box, "black")) {
-                        continue;
-                    } else {
-                        setBackgroundColor(box, "white");
-                    }
-                }
-            }
-        }
+    const handleClearDisplay = () => {
+        blueFunc();
     }
 
     function handleOnClickRun() {
         // TODO: if not already running:
-        window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
-        if (!engine.isRunning()) {
-            setEngine(new Engine(getSelectedAlg(), startPos[0], startPos[1], 
-                                    endPos[0], endPos[1], orientationList, willDisplayFancy));
-            engine.run();
-        }
+        greenFunc(getSelectedAlg(), startPos[0], startPos[1], 
+            endPos[0], endPos[1], orientationList, willDisplayFancy);
     }
 
     function handleOnCheck(boxChecked) {
-        toggleFancy(boxChecked)
+        toggleFancy(boxChecked);
     }
 
     return (
@@ -136,8 +91,8 @@ const Settings = () => {
                     Have Fun!
                 </span>
                 <Controls 
-                    blueFunc={ clearDisplay }
-                    redFunc={ clearAll }  
+                    blueFunc={ handleClearDisplay }
+                    redFunc={ handleClearAll }  
                     greenFunc={ handleOnClickRun } 
                     checkFunc={ handleOnCheck }
                 />
