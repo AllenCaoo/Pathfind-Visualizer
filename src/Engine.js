@@ -17,14 +17,21 @@ export class Engine {
         this.orientationOrdered = orientationOrdered;
         this.displayFancy = displayFancy;
         this.displayFancy = displayFancy;
+        this.engineIsRunning = false;
         this.algorithm = () => {
             return chosenAlg(startRow, startCol, endRow, endCol, orientationOrdered);
         }
     }
+
+    isRunning() {
+        return this.engineIsRunning;
+    }
     
-    run() {
+    async run() {
+        this.engineIsRunning = true;
         let queues = this.algorithm();
-        this.display(queues["visited"], queues["path"], this.displayFancy);
+        await this.display(queues["visited"], queues["path"], this.displayFancy);
+        this.engineIsRunning = false;
     }
     
 

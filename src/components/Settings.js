@@ -1,4 +1,4 @@
-import {React, useState} from 'react';
+import {React, useState, useEffect} from 'react';
 import {AlgorithmSelect} from './Select';
 import Orientations from './Orientations';
 import {Dijkstras, DFS, BFS, A_star, Greedy, Engine} from '../Engine';
@@ -19,21 +19,32 @@ const nameToAlgs = {
     "GREEDY": Greedy
   }
 
+const defaultOrientation = ['N', 'E', 'S', 'W'];
+
 const Settings = () => {
 
-    var [selectedAlg, changeSelectedAlg] = useState('DI'); 
+    var [selectedAlg, setSelectedAlg] = useState('DI'); 
                                            // TODO: get the first option instead, 
                                            // needs to wait after construction
 
-    var [orientationList, changeOrientation] = useState(['N', 'E', 'S', 'W']);
+    var [orientationList, setOrientation] = useState(defaultOrientation);
 
     var [willDisplayFancy, toggleFancy] = useState(false);
 
-    changeSelectedAlg = (alg) => {
+    var [engine, setEngine] = useState(null);
+
+    /* will only be called after initial rendering; initalizes engine */
+    useEffect(() => {
+        setEngine(new Engine(getSelectedAlg(), startPos[0], startPos[1], 
+        endPos[0], endPos[1], orientationList, willDisplayFancy));
+    }, [])
+    
+
+    setSelectedAlg = (alg) => {
         selectedAlg = alg;
     }
 
-    changeOrientation = (orientation, number) => {
+    setOrientation = (orientation, number) => {
         let index = parseInt(number);
         orientationList[index - 1] = orientation;
         console.log(orientation);
@@ -43,37 +54,45 @@ const Settings = () => {
         willDisplayFancy = boxChecked;
     }
 
+    setEngine = (newEngine) => {
+        engine = newEngine;
+    }
+
     const getSelectedAlg = () => {
         return nameToAlgs[selectedAlg];
     }
 
     const clearAll = () => {
-        for (let row = 0; row <= maxRow; row++) {
-            for (let col = 0; col <= maxCol; col++) {
-                let box = document.getElementById(`${row}-${col}`);
-                if (row === startPos[0] && col === startPos[1]) {
-                    setBackgroundColor(box, "green");
-                } else if (row === endPos[0] && col === endPos[1]) {
-                    setBackgroundColor(box, "red");
-                } else {
-                    setBackgroundColor(box, "white");
+        if (!engine.isRunning()) {
+            for (let row = 0; row <= maxRow; row++) {
+                for (let col = 0; col <= maxCol; col++) {
+                    let box = document.getElementById(`${row}-${col}`);
+                    if (row === startPos[0] && col === startPos[1]) {
+                        setBackgroundColor(box, "green");
+                    } else if (row === endPos[0] && col === endPos[1]) {
+                        setBackgroundColor(box, "red");
+                    } else {
+                        setBackgroundColor(box, "white");
+                    }
                 }
             }
         }
     }
 
     const clearDisplay = () => {
-        for (let row = 0; row <= maxRow; row++) {
-            for (let col = 0; col <= maxCol; col++) {
-                let box = document.getElementById(`${row}-${col}`);
-                if (row === startPos[0] && col === startPos[1]) {
-                    setBackgroundColor(box, "green");
-                } else if (row === endPos[0] && col === endPos[1]) {
-                    setBackgroundColor(box, "red");
-                } else if (hasBackgroundColor(box, "black")) {
-                    continue;
-                } else {
-                    setBackgroundColor(box, "white");
+        if (!engine.isRunning()) {
+            for (let row = 0; row <= maxRow; row++) {
+                for (let col = 0; col <= maxCol; col++) {
+                    let box = document.getElementById(`${row}-${col}`);
+                    if (row === startPos[0] && col === startPos[1]) {
+                        setBackgroundColor(box, "green");
+                    } else if (row === endPos[0] && col === endPos[1]) {
+                        setBackgroundColor(box, "red");
+                    } else if (hasBackgroundColor(box, "black")) {
+                        continue;
+                    } else {
+                        setBackgroundColor(box, "white");
+                    }
                 }
             }
         }
@@ -82,9 +101,11 @@ const Settings = () => {
     function handleOnClickRun() {
         // TODO: if not already running:
         window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
-        let engine = new Engine(getSelectedAlg(), startPos[0], startPos[1], 
-                                endPos[0], endPos[1], orientationList, willDisplayFancy);
-        engine.run();
+        if (!engine.isRunning()) {
+            setEngine(new Engine(getSelectedAlg(), startPos[0], startPos[1], 
+                                    endPos[0], endPos[1], orientationList, willDisplayFancy));
+            engine.run();
+        }
     }
 
     function handleOnCheck(boxChecked) {
@@ -97,13 +118,13 @@ const Settings = () => {
                 <span className="dir-text">
                     Please select a pathfinding algorithm: 
                 </span>
-                <AlgorithmSelect onChange={ changeSelectedAlg } />
+                <AlgorithmSelect onChange={ setSelectedAlg } />
                 <hr></hr>
                 <br></br>
                 <span className="dir-text">
                     Please select orientation tie-break rule:
                 </span>
-                <Orientations onChange={changeOrientation}/>
+                <Orientations onChange={ setOrientation }/>
                 <br></br>
                 <span className="note"> Note: NESW will be chosen if 
                 invalid orientation sequence is selected</span>

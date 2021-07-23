@@ -9,7 +9,7 @@ function App() {
       <Header/>
       <hr></hr>
       <Settings />
-      <Board/>
+      <Board />
       <br></br>
     </div>
   );
