@@ -91,10 +91,10 @@ const Settings = ({ blueFunc, redFunc, greenFunc }) => {
                     Have Fun!
                 </span>
                 <Controls 
-                    blueFunc={ handleClearDisplay }
-                    redFunc={ handleClearAll }  
-                    greenFunc={ handleOnClickRun } 
-                    checkFunc={ handleOnCheck }
+                    blueClick={ handleClearDisplay }
+                    redClick={ handleClearAll }  
+                    greenClick={ handleOnClickRun } 
+                    checkClick={ handleOnCheck }
                 />
             </div>
         </div>

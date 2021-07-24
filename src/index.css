@@ -100,7 +100,12 @@ body {
   text-decoration: none;
   font-size: 15px;
   font-family: inherit;
+  -moz-transition: all .2s ease-in;
+  -o-transition: all .2s ease-in;
+  -webkit-transition: all .2s ease-in;
+  transition: all .2s ease-in;
 }
+
 
 .alg-slct {
   display: inline-block;

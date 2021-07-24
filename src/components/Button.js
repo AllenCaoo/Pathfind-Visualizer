@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 
-const Button = ( {color, text, onClick} ) => {
+const Button = ( { id, color, text, onClick } ) => {
     return (
-        <button style={{backgroundColor: color}} className='btn' 
+        <button id={id} style={{backgroundColor: color}} className='btn' 
             onClick={onClick}>{text}</button>
     )
 }

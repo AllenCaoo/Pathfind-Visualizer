@@ -69,7 +69,7 @@ export class Engine {
             setBackgroundColor(path[i], "yellow");
             await sleep(pathMS);
         }
-        console.log('Displayed');
+        await sleep(500);
     }
     
 }

@@ -8,6 +8,7 @@ const Box = ({row, col, color, canDrawOn}) => {
         e.preventDefault();
         if (canDrawOn()) {
             isMouseDown = true;
+            toggleState();
         }
     }
 

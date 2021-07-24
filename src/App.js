@@ -62,13 +62,15 @@ function App() {
     }
   }
 
-  const runEngine = (alg, startRow, startCol, endRow, endCol, oriList, willDisplayFancy) => {
+  async function runEngine(alg, startRow, startCol, endRow, endCol, oriList, willDisplayFancy) {
     window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
-      if (!engine.isRunning()) {
-          setEngine(new Engine(alg, startRow, startCol, 
-                    endRow, endCol, oriList, willDisplayFancy));
-          engine.run();
-      }
+    if (!engine.isRunning()) {
+      setBackgroundColor(document.getElementById('green-control'), "gray");
+      setEngine(new Engine(alg, startRow, startCol, 
+                endRow, endCol, oriList, willDisplayFancy));
+      await engine.run();
+      setBackgroundColor(document.getElementById('green-control'), "green");
+    }
   }
 
   const canDraw = () => {
