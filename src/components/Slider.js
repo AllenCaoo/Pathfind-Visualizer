@@ -2,11 +2,12 @@ import React from 'react'
 
 const Slider = () => {
     return (
-        <>
+        <>  
+            <label for="speed">Slow</label>
             <input type="range" min="1" max="100" value="50" class="slider" id="speed"></input>
-            <label for="speed">Speed</label>
+            <label for="speed">Fast</label>
         </>
     )
 }
 
-export default Slider
+export default Slider;

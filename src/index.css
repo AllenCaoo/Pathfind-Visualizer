@@ -140,6 +140,7 @@ body {
   text-align-last: center;
 }
 
+
 .circle-number {
   display: inline-block;
   height: 30px;
@@ -207,9 +208,20 @@ input[type=checkbox]:checked {
 
 .dir-text {
   margin: 10px;
+  display: inline-block;
   font-family: 'Poppins', sans-serif;
   font-weight: 500;
 }
+/* 
+.slider {
+  display: inline-block;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 15px;
+  margin-left: 20px;
+  margin-right:10px;
+} */
 
 
 .board {

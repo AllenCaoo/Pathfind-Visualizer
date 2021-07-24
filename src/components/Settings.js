@@ -1,11 +1,10 @@
 import {React, useState, useEffect} from 'react';
 import {AlgorithmSelect} from './Select';
 import Orientations from './Orientations';
-import {Dijkstras, DFS, BFS, A_star, Greedy, Engine} from '../Engine';
+import {Dijkstras, DFS, BFS, A_star, Greedy} from '../Engine';
 import { FaTimes } from 'react-icons/fa';
-import {maxRow, maxCol} from './Board';
 import Controls from './Controls'
-import {hasBackgroundColor, setBackgroundColor} from '../AlgorithmLib/utils';
+import Slider from './Slider';
 export var startPos = [10, 10];
 export var endPos = [10, 45];
 export var startingIcon = <FaTimes style={{color: 'red', cursor: 'pointer'}}/>
@@ -84,6 +83,11 @@ const Settings = ({ blueFunc, redFunc, greenFunc }) => {
                 <span className="note"> Note: NESW will be chosen if 
                 invalid orientation sequence is selected</span>
                 <hr></hr>
+                {/* <span className="dir-text">
+                    Please select your desired speed: 
+                </span>
+                <Slider />
+                <hr></hr> */}
             </div>
             <br></br>
             <div className='playground'>
