@@ -107,7 +107,7 @@ body {
 }
 
 
-.alg-slct {
+.alg-slct, .speed-slct {
   display: inline-block;
   background: #000;
   color: #fff;
@@ -125,7 +125,7 @@ body {
 
 .ori-slct {
   display: inline-block;
-  background: #000;
+  background: rgb(0, 0, 0);
   color: #fff;
   border: none;
   padding: 10px 5px;

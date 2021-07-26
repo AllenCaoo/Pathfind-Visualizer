@@ -1,19 +1,41 @@
-import {React, useState} from 'react'
+import {React} from 'react';
+import PropTypes from 'prop-types';
+
+
+
+export const Select = ( { className, color, numOptions, values, texts, onChange} ) => {
+
+    function makeOptions() {
+        let options = [];
+        for (let i = 0; i < numOptions; i++) {
+            options.push(<option value={values[i]}>{texts[i]}</option>);
+        }
+        return options;
+    }
+
+    return (
+        <select className={className} style={{backgroundColor: color}}
+                onChange={(evt) => onChange(evt)} >
+            {makeOptions()}
+        </select>
+    )
+}
+
+
+
 
 export const AlgorithmSelect = ( { color, onChange } ) => {
 
 
     return (
-        <span className="span-alg-slct" >
-            <select className='alg-slct' id='algorithms' style={{backgroundColor: color}}
-                onChange={(evt) => onChange(evt.target.value)} >
-                <option value="DI">Dijkstra's</option>
-                <option value="A*">A* (Best First Search)</option>
-                <option value="DFS">Depth First Search</option>
-                <option value="BFS">Breadth First Search</option>
-                <option value="GREEDY">Greedy Best First Search</option>
-            </select>
-        </span>
+        <select className='alg-slct' id='algorithms' style={{backgroundColor: color}}
+            onChange={(evt) => onChange(evt.target.value)} >
+            <option value="DI">Dijkstra's</option>
+            <option value="A*">A* (Best First Search)</option>
+            <option value="DFS">Depth First Search</option>
+            <option value="BFS">Breadth First Search</option>
+            <option value="GREEDY">Greedy Best First Search</option>
+        </select>
     )
 }
 
@@ -33,4 +55,3 @@ export const OrientationSelect = ( { color, selected, number, onChange } ) => {
 AlgorithmSelect.defaultProps = {
     color: 'black'
 }
-

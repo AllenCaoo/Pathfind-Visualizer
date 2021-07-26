@@ -1,5 +1,5 @@
 import {React, useState, useEffect} from 'react';
-import {AlgorithmSelect} from './Select';
+import {AlgorithmSelect, Select} from './Select';
 import Orientations from './Orientations';
 import {Dijkstras, DFS, BFS, A_star, Greedy} from '../Engine';
 import { FaTimes } from 'react-icons/fa';
@@ -83,11 +83,13 @@ const Settings = ({ blueFunc, redFunc, greenFunc }) => {
                 <span className="note"> Note: NESW will be chosen if 
                 invalid orientation sequence is selected</span>
                 <hr></hr>
-                {/* <span className="dir-text">
+                <span className="dir-text">
                     Please select your desired speed: 
                 </span>
-                <Slider />
-                <hr></hr> */}
+                <Select className="speed-slct" color="rgb(247, 81, 197)" numOptions={4} 
+                    values={["Fast", "Normal", "Slow", "Step-By-Step"]} 
+                    texts={["Fast", "Normal", "Slow", "Step-By-Step"]} onChange />
+                <hr></hr>
             </div>
             <br></br>
             <div className='playground'>
