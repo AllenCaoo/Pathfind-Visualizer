@@ -43,7 +43,7 @@ export const OrientationSelect = ( { color, selected, number, onChange } ) => {
     
     return (
         <select className='ori-slct' id={`orientation-${number}`} style={{backgroundColor: color}} 
-            defaultValue={selected} onChange={(evt) => onChange(evt.target.value, number)}>
+            defaultValue={selected} onChange={(evt) => onChange(evt, number)}>
             <option value="N">North</option>
             <option value="E">East</option>
             <option value="S">South</option>

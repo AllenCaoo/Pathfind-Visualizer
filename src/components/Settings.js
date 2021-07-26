@@ -3,11 +3,11 @@ import {AlgorithmSelect, Select} from './Select';
 import Orientations from './Orientations';
 import {Dijkstras, DFS, BFS, A_star, Greedy} from '../Engine';
 import { FaTimes } from 'react-icons/fa';
-import Controls from './Controls'
-import Slider from './Slider';
-export var startPos = [10, 10];
-export var endPos = [10, 45];
-export var startingIcon = <FaTimes style={{color: 'red', cursor: 'pointer'}}/>
+import Controls from './Controls';
+
+export const startPos = [10, 10];
+export const endPos = [10, 45];
+export const startingIcon = <FaTimes style={{color: 'red', cursor: 'pointer'}}/>
 
 
 const nameToAlgs = {
@@ -20,6 +20,13 @@ const nameToAlgs = {
 
 const defaultOrientation = ['N', 'E', 'S', 'W'];
 
+const speedToDelayMS = {
+    "Fast": 0,
+    "Normal": 20,
+    "Slow": 100,
+    "Step-By-Step": 1000
+}
+
 const Settings = ({ blueFunc, redFunc, greenFunc }) => {
 
     var [selectedAlg, setSelectedAlg] = useState('DI'); 
@@ -30,19 +37,27 @@ const Settings = ({ blueFunc, redFunc, greenFunc }) => {
 
     var [willDisplayFancy, toggleFancy] = useState(false);
 
+    var [speed, setSpeed] = useState("Fast");
+
     setSelectedAlg = (alg) => {
         selectedAlg = alg;
     }
 
-    setOrientation = (orientation, number) => {
+    setOrientation = (evt, number) => {
         let index = parseInt(number);
-        orientationList[index - 1] = orientation;
-        console.log(orientation);
+        orientationList[index - 1] = evt.target.value;
     }
 
     toggleFancy = (boxChecked) => {
         willDisplayFancy = boxChecked;
     }
+
+
+    setSpeed = (evt) => {
+        speed = evt.target.value;
+        console.log(speed);
+    }
+
 
     const getSelectedAlg = () => {
         return nameToAlgs[selectedAlg];
@@ -59,7 +74,7 @@ const Settings = ({ blueFunc, redFunc, greenFunc }) => {
     function handleOnClickRun() {
         // TODO: if not already running:
         greenFunc(getSelectedAlg(), startPos[0], startPos[1], 
-            endPos[0], endPos[1], orientationList, willDisplayFancy);
+            endPos[0], endPos[1], orientationList, willDisplayFancy, speedToDelayMS[speed]);
     }
 
     function handleOnCheck(boxChecked) {
@@ -86,9 +101,9 @@ const Settings = ({ blueFunc, redFunc, greenFunc }) => {
                 <span className="dir-text">
                     Please select your desired speed: 
                 </span>
-                <Select className="speed-slct" color="rgb(247, 81, 197)" numOptions={4} 
+                <Select className="speed-slct" color="black" numOptions={4} 
                     values={["Fast", "Normal", "Slow", "Step-By-Step"]} 
-                    texts={["Fast", "Normal", "Slow", "Step-By-Step"]} onChange />
+                    texts={["Fast", "Normal", "Slow", "Step-By-Step"]} onChange={ setSpeed } />
                 <hr></hr>
             </div>
             <br></br>

@@ -18,7 +18,7 @@ function App() {
 
     /* will only be called after initial rendering; initalizes engine */
     useEffect(() => {
-        setEngine(new Engine(null, 0, 0, 0, 0, [], false));
+        setEngine(new Engine(null, 0, 0, 0, 0, [], false, 0));
     }, []);
 
 
@@ -26,7 +26,7 @@ function App() {
       engine = newEngine;
     }
 
-  const clearAll = (func) => {
+  const clearAll = () => {
     if (!engine.isRunning()) {
       for (let row = 0; row <= maxRow; row++) {
         for (let col = 0; col <= maxCol; col++) {
@@ -62,12 +62,12 @@ function App() {
     }
   }
 
-  async function runEngine(alg, startRow, startCol, endRow, endCol, oriList, willDisplayFancy) {
+  async function runEngine(alg, startRow, startCol, endRow, endCol, oriList, willDisplayFancy, delay) {
     window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
     if (!engine.isRunning()) {
       setBackgroundColor(document.getElementById('green-control'), "gray");
       setEngine(new Engine(alg, startRow, startCol, 
-                endRow, endCol, oriList, willDisplayFancy));
+                endRow, endCol, oriList, willDisplayFancy, delay));
       await engine.run();
       setBackgroundColor(document.getElementById('green-control'), "green");
     }
@@ -81,7 +81,7 @@ function App() {
     <div className="App">
       <Header/>
       <hr></hr>
-      <Settings blueFunc={clearDisplay} redFunc={clearAll} greenFunc={runEngine} />
+      <Settings blueFunc={ clearDisplay } redFunc={ clearAll } greenFunc={ runEngine } />
       <Board canDrawOn={canDraw} />
       <br></br>
     </div>

@@ -8,7 +8,7 @@ import {setBackgroundColor, hasBackgroundColor} from './AlgorithmLib/utils';
 
 
 export class Engine {
-    constructor(chosenAlg, startRow, startCol, endRow, endCol, orientationOrdered, displayFancy) {
+    constructor(chosenAlg, startRow, startCol, endRow, endCol, orientationOrdered, displayFancy, delay) {
         this.chosenAlgorithm = chosenAlg;
         this.startRow = startRow;
         this.startCol = startCol;
@@ -18,6 +18,7 @@ export class Engine {
         this.displayFancy = displayFancy;
         this.displayFancy = displayFancy;
         this.engineIsRunning = false;
+        this.delay = delay;
         this.algorithm = () => {
             return chosenAlg(startRow, startCol, endRow, endCol, orientationOrdered);
         }
@@ -30,13 +31,14 @@ export class Engine {
     async run() {
         this.engineIsRunning = true;
         let queues = this.algorithm();
-        await this.display(queues["visited"], queues["path"], this.displayFancy);
+        await this.display(queues["visited"], queues["path"], this.displayFancy, this.delay);
         this.engineIsRunning = false;
     }
     
 
-    async display(queue, path, displayFancy) {
-        let ms = 0;
+    async display(queue, path, displayFancy, delayMS) {
+        let baseOverLayDelayMS = 100;
+        let pathDelayMS = 20;
         let r = 64
         let g = 224;
         let b = 208;
@@ -45,31 +47,39 @@ export class Engine {
             return new Promise(resolve => setTimeout(resolve, ms));
         }
 
-        async function overlapDisplay(box, r, g, b) {
+        async function overlapDisplay(box, r, g, b, catchUpDelay) {
             /* rgb(64, 187, 224), rgb(56, 164, 197), rgb(48, 134, 160), rgb(48, 106, 160); */
             if (r < 20 || g <= 50 || b <= 50 || hasBackgroundColor(box, "yellow")) {
                 return;
             }
             box.style.backgroundColor = `rgb(${r}, ${g}, ${b})`;
-            await sleep(100);
-            await overlapDisplay(box, r - 2, g - 6, b - 6);
+            await sleep(catchUpDelay + delayMS);
+            await overlapDisplay(box, r - 2, g - 6, b - 6, catchUpDelay);
+        }
+        
+
+        async function DisplayAndOverlap() {
+            for (let i = 0; i < queue.length; i++) {
+                if (hasBackgroundColor(queue[i], "white")) {  // don't override green or red
+                    setBackgroundColor(queue[i], `rgb(${r}, ${g}, ${b})`);
+                    if (displayFancy) {
+                        setTimeout(function () { 
+                            overlapDisplay(queue[i], r - 1, g - 3, b - 3, baseOverLayDelayMS); 
+                        }, 500);
+                    }
+                }
+                await sleep(delayMS);
+            }
         }
 
-        for (let i = 0; i < queue.length; i++) {
-            if (hasBackgroundColor(queue[i], "white")) {  // don't override green or red
-                setBackgroundColor(queue[i], `rgb(${r}, ${g}, ${b})`);
-                if (displayFancy) {
-                    setTimeout(function () { overlapDisplay(queue[i], r - 1, g - 3, b - 3); }, 500);
-                }
-            }
-            await sleep(ms);
-        }
-        let pathMS = 20;
+        await DisplayAndOverlap();
+
+
         for (let i = 0; i < path.length; i++) {
             setBackgroundColor(path[i], "yellow");
-            await sleep(pathMS);
+            await sleep(pathDelayMS);
         }
-        await sleep(500);
+        await sleep(delayMS + 1000 + baseOverLayDelayMS);
     }
     
 }
