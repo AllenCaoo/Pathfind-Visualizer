@@ -39,6 +39,8 @@ const Settings = ({ blueFunc, redFunc, greenFunc }) => {
 
     var [speed, setSpeed] = useState("Fast");
 
+    var [maze, setMaze] = useState("maze1");
+
     setSelectedAlg = (alg) => {
         selectedAlg = alg;
     }
@@ -55,9 +57,12 @@ const Settings = ({ blueFunc, redFunc, greenFunc }) => {
 
     setSpeed = (evt) => {
         speed = evt.target.value;
-        console.log(speed);
     }
 
+    setMaze = (evt) => {
+        maze = evt.target.value;
+        console.log(maze)
+    }
 
     const getSelectedAlg = () => {
         return nameToAlgs[selectedAlg];
@@ -97,6 +102,13 @@ const Settings = ({ blueFunc, redFunc, greenFunc }) => {
                 <br></br>
                 <span className="note"> Note: NESW will be chosen if 
                 invalid orientation sequence is selected</span>
+                <hr></hr>
+                <span className="dir-text">
+                    Please select a maze: 
+                </span>
+                <Select className="maze-slct" color="black" numOptions={4} 
+                    values={["Blank Board", "maze2", "maze3", "maze4"]} 
+                    texts={["Blank Board", "maze2", "maze3", "maze4"]} onChange={ setMaze } />
                 <hr></hr>
                 <span className="dir-text">
                     Please select your desired speed: 

@@ -1,5 +1,5 @@
 import {getAdjacent, getRowFromId, getColFromId, getElementByPos, display,
-        getAllBoxes, biasManhattan} from './utils';
+        getAllBoxes, biasManhattan} from '../utils';
 
 
 function A_star_run(startRow, startCol, endRow, endCol, 

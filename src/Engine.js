@@ -2,9 +2,8 @@ import BFSRun from './AlgorithmLib/BFS';
 import DFSRun from './AlgorithmLib/DFS';
 import DijkstrasRun from './AlgorithmLib/Dijkstras';
 import A_star_run from './AlgorithmLib/A_star';
-import { orientationListToJson } from './AlgorithmLib/utils';
 import GreedyRun from './AlgorithmLib/GreedyBFS';
-import {setBackgroundColor, hasBackgroundColor} from './AlgorithmLib/utils';
+import {setBackgroundColor, hasBackgroundColor, orientationListToJson} from './utils';
 
 
 export class Engine {

@@ -1,5 +1,5 @@
 import A_star_run from './A_star';
-import {getAdjacent, getRowFromId, getColFromId} from './utils';
+import {getAdjacent, getRowFromId, getColFromId} from '../utils';
 
 function GreedyRun(startRow, startCol, endRow, endCol, orientationList) {
     return A_star_run(startRow, startCol, endRow, endCol, orientationList, undefined, greedyRelax);

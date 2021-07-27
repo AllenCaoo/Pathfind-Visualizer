@@ -1,5 +1,5 @@
 import {React, useState} from 'react';
-import {hasBackgroundColor, setBackgroundColor} from '../AlgorithmLib/utils';
+import {hasBackgroundColor, setBackgroundColor} from '../utils';
 
 var isMouseDown = false;
 const Box = ({row, col, color, canDrawOn}) => {

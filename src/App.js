@@ -5,7 +5,7 @@ import Board from './components/Board';
 import {Engine} from './Engine';
 import { FaTimes } from 'react-icons/fa';
 import {maxRow, maxCol} from './components/Board';
-import {hasBackgroundColor, setBackgroundColor} from './AlgorithmLib/utils';
+import {hasBackgroundColor, setBackgroundColor} from './utils';
 export var startPos = [10, 10];
 export var endPos = [10, 45];
 export var startingIcon = <FaTimes style={{color: 'red', cursor: 'pointer'}}/>

@@ -1,4 +1,4 @@
-import {maxRow, maxCol} from '../components/Board';
+import {maxRow, maxCol} from './components/Board';
 
 var numOrientations = 4;
 var defaultOrientation = {

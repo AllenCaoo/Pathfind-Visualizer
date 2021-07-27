@@ -74,8 +74,8 @@ body {
 
 
 .header {
-  height: 150px;
-  line-height: 150px;
+  height: 100px;
+  line-height: 100px;
   text-align: center;
   background-color: rgb(243, 243, 207);
 }
@@ -113,7 +113,7 @@ body {
 }
 
 
-.alg-slct, .speed-slct {
+.alg-slct, .speed-slct, .maze-slct {
   display: inline-block;
   background: #000;
   color: #fff;

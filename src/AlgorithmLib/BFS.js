@@ -1,4 +1,4 @@
-import {getAdjacent, getRowFromId, getColFromId, getElementByPos, display} from './utils';
+import {getAdjacent, getRowFromId, getColFromId, getElementByPos, display} from '../utils';
 
 function BFSRun(startRow, startCol, endRow, endCol, orientationList) {
     let queue = [];

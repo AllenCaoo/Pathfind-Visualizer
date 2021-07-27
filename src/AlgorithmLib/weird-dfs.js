@@ -1,4 +1,4 @@
-import {getAdjacent, getRowFromId, getColFromId, getElementByPos, display} from './utils';
+import {getAdjacent, getRowFromId, getColFromId, getElementByPos, display} from '../utils';
 
 
 var stack = [];
