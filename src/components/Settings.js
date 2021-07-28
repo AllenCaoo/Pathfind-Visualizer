@@ -1,11 +1,11 @@
 import {React, useState, useEffect} from 'react';
 import {AlgorithmSelect, Select} from './Select';
 import Orientations from './Orientations';
-import {Dijkstras, DFS, BFS, A_star, Greedy} from '../Engine';
+import {Dijkstras, DFS, BFS, A_star, Greedy } from '../Engine';
 import { FaTimes } from 'react-icons/fa';
 import Controls from './Controls';
 import Button from './Button'
-import { blankMaze } from '../Engine';
+import { blankMaze, recursiveBacktrack } from '../Engine';
 
 export const startPos = [10, 10];
 export const endPos = [10, 45];
@@ -30,7 +30,8 @@ const speedToDelayMS = {
 }
 
 const nameToMaze = {
-    "Blank Board": blankMaze
+    "Blank Board": blankMaze,
+    "Recursive Backtrack": recursiveBacktrack
 }
 
 const Settings = ({ blueFunc, redFunc, greenFunc }) => {
@@ -121,8 +122,8 @@ const Settings = ({ blueFunc, redFunc, greenFunc }) => {
                     Please select a maze: 
                 </span>
                 <Select className="maze-slct" color="black" numOptions={4} 
-                    values={["Blank Board", "maze2", "maze3", "maze4"]} 
-                    texts={["Blank Board", "maze2", "maze3", "maze4"]} onChange={ setMaze } />
+                    values={["Blank Board", "Recursive Backtrack", "maze3", "maze4"]} 
+                    texts={["Blank Board", "Recursive Backtrack", "maze3", "maze4"]} onChange={ setMaze } />
                 <Button id="maze-btn" color="green" text="Generate" onClick={ handleOnClickGenMaze } />
                 <hr></hr>
                 <span className="dir-text">

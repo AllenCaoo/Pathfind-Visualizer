@@ -5,6 +5,7 @@ import A_star_run from './AlgorithmLib/A_star';
 import GreedyRun from './AlgorithmLib/GreedyBFS';
 import {setBackgroundColor, hasBackgroundColor, orientationListToJson} from './utils';
 import runBlankMaze from './MazeLib/BlankMaze';
+import runRecursiveBacktrack from './MazeLib/RecursiveBacktrack';
 
 
 const algColor = {'r': 64, 'g': 224, 'b': 208};
@@ -118,4 +119,8 @@ export function Greedy(startRow, startCol, endRow, endCol, orientationList) {
 
 export function blankMaze(startRow, startCol, endRow, endCol, orientationList) {
     return runBlankMaze([startRow, startCol], [endRow, endCol]);
+}
+
+export function recursiveBacktrack(startRow, startCol, endRow, endCol, orientationList) {
+    return runRecursiveBacktrack(startRow, startCol, endRow, endCol);
 }
