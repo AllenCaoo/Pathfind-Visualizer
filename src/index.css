@@ -112,6 +112,11 @@ body {
   transition: all .2s ease-in;
 }
 
+#maze-btn {
+  margin-left: 50px;
+  padding: 5px 10px;
+}
+
 
 .alg-slct, .speed-slct, .maze-slct {
   display: inline-block;

@@ -62,11 +62,11 @@ function App() {
     }
   }
 
-  async function runEngine(alg, startRow, startCol, endRow, endCol, oriList, willDisplayFancy, delay) {
+  async function runEngine(alg, isMaze, startRow, startCol, endRow, endCol, oriList, willDisplayFancy, delay) {
     window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
     if (!engine.isRunning()) {
       setBackgroundColor(document.getElementById('green-control'), "gray");
-      setEngine(new Engine(alg, startRow, startCol, 
+      setEngine(new Engine(alg, isMaze, startRow, startCol, 
                 endRow, endCol, oriList, willDisplayFancy, delay));
       await engine.run();
       setBackgroundColor(document.getElementById('green-control'), "green");

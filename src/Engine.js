@@ -4,17 +4,23 @@ import DijkstrasRun from './AlgorithmLib/Dijkstras';
 import A_star_run from './AlgorithmLib/A_star';
 import GreedyRun from './AlgorithmLib/GreedyBFS';
 import {setBackgroundColor, hasBackgroundColor, orientationListToJson} from './utils';
+import runBlankMaze from './MazeLib/BlankMaze';
 
 
-export class Engine {
-    constructor(chosenAlg, startRow, startCol, endRow, endCol, orientationOrdered, displayFancy, delay) {
+const algColor = {'r': 64, 'g': 224, 'b': 208};
+const mazeColor = {'r': 0, 'g': 0, 'b':0};
+
+export class Engine { 
+
+    constructor(chosenAlg, isMaze, startRow, startCol, endRow, endCol, 
+                        orientationOrdered, displayFancy, delay) {
         this.chosenAlgorithm = chosenAlg;
+        this.isMaze = isMaze;
         this.startRow = startRow;
         this.startCol = startCol;
         this.endRow = endRow;
         this.endCol = endCol;
         this.orientationOrdered = orientationOrdered;
-        this.displayFancy = displayFancy;
         this.displayFancy = displayFancy;
         this.engineIsRunning = false;
         this.delay = delay;
@@ -30,17 +36,21 @@ export class Engine {
     async run() {
         this.engineIsRunning = true;
         let queues = this.algorithm();
-        await this.display(queues["visited"], queues["path"], this.displayFancy, this.delay);
+        if (!this.isMaze) {
+            await this.display(queues["visited"], queues["path"], this.displayFancy, this.delay, algColor);
+        } else {
+            await this.display(queues["visited"], queues["path"], this.displayFancy, this.delay, mazeColor);
+        }
         this.engineIsRunning = false;
     }
     
 
-    async display(queue, path, displayFancy, delayMS) {
+    async display(queue, path, displayFancy, delayMS, color) {
         let baseOverLayDelayMS = 100;
         let pathDelayMS = 20;
-        let r = 64
-        let g = 224;
-        let b = 208;
+        let r = color['r'];
+        let g = color['g'];
+        let b = color['b'];
 
         function sleep(ms) {
             return new Promise(resolve => setTimeout(resolve, ms));
@@ -80,8 +90,8 @@ export class Engine {
         }
         await sleep(delayMS + 1000 + baseOverLayDelayMS);
     }
-    
 }
+
 
 
 export function Dijkstras(startRow, startCol, endRow, endCol, orientationList) {
@@ -104,4 +114,8 @@ export function BFS(startRow, startCol, endRow, endCol, orientationList) {
 
 export function Greedy(startRow, startCol, endRow, endCol, orientationList) {
     return GreedyRun(startRow, startCol, endRow, endCol, orientationListToJson(orientationList));
+}
+
+export function blankMaze(startRow, startCol, endRow, endCol, orientationList) {
+    return runBlankMaze([startRow, startCol], [endRow, endCol]);
 }

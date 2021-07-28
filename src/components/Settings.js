@@ -4,6 +4,8 @@ import Orientations from './Orientations';
 import {Dijkstras, DFS, BFS, A_star, Greedy} from '../Engine';
 import { FaTimes } from 'react-icons/fa';
 import Controls from './Controls';
+import Button from './Button'
+import { blankMaze } from '../Engine';
 
 export const startPos = [10, 10];
 export const endPos = [10, 45];
@@ -27,6 +29,10 @@ const speedToDelayMS = {
     "Step-By-Step": 1000
 }
 
+const nameToMaze = {
+    "Blank Board": blankMaze
+}
+
 const Settings = ({ blueFunc, redFunc, greenFunc }) => {
 
     var [selectedAlg, setSelectedAlg] = useState('DI'); 
@@ -39,7 +45,7 @@ const Settings = ({ blueFunc, redFunc, greenFunc }) => {
 
     var [speed, setSpeed] = useState("Fast");
 
-    var [maze, setMaze] = useState("maze1");
+    var [maze, setMaze] = useState("Blank Board");
 
     setSelectedAlg = (alg) => {
         selectedAlg = alg;
@@ -61,11 +67,19 @@ const Settings = ({ blueFunc, redFunc, greenFunc }) => {
 
     setMaze = (evt) => {
         maze = evt.target.value;
-        console.log(maze)
     }
 
     const getSelectedAlg = () => {
         return nameToAlgs[selectedAlg];
+    }
+
+    const getSelectedMazeAlg = () => {
+        return nameToMaze[maze];
+    }
+
+    function handleOnClickGenMaze() {
+        greenFunc(getSelectedMazeAlg(), true, startPos[0], startPos[1], 
+            endPos[0], endPos[1], orientationList, false, 0);
     }
 
     const handleClearAll = () => {
@@ -78,7 +92,7 @@ const Settings = ({ blueFunc, redFunc, greenFunc }) => {
 
     function handleOnClickRun() {
         // TODO: if not already running:
-        greenFunc(getSelectedAlg(), startPos[0], startPos[1], 
+        greenFunc(getSelectedAlg(), false, startPos[0], startPos[1], 
             endPos[0], endPos[1], orientationList, willDisplayFancy, speedToDelayMS[speed]);
     }
 
@@ -109,6 +123,7 @@ const Settings = ({ blueFunc, redFunc, greenFunc }) => {
                 <Select className="maze-slct" color="black" numOptions={4} 
                     values={["Blank Board", "maze2", "maze3", "maze4"]} 
                     texts={["Blank Board", "maze2", "maze3", "maze4"]} onChange={ setMaze } />
+                <Button id="maze-btn" color="green" text="Generate" onClick={ handleOnClickGenMaze } />
                 <hr></hr>
                 <span className="dir-text">
                     Please select your desired speed: 
