@@ -43,7 +43,7 @@ function App() {
     }
   }
 
-  const clearDisplay = (func) => {
+  const clearDisplay = () => {
     if (!engine.isRunning()) {
       for (let row = 0; row <= maxRow; row++) {
         for (let col = 0; col <= maxCol; col++) {
