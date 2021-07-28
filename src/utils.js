@@ -8,8 +8,12 @@ var defaultOrientation = {
     'W': 4
 }
 
+const colorToRGB = {
+    "black": "rgb(0, 0, 0)"
+}
+
 export function hasBackgroundColor(box, color) {
-    return box.style.backgroundColor === color;
+    return box.style.backgroundColor === color || box.style.backgroundColor === colorToRGB[color];
 }
 
 export function setBackgroundColor(box, color) {
