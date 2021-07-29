@@ -104,11 +104,6 @@ const Settings = ({ blueFunc, redFunc, greenFunc }) => {
     return (
         <div>
             <div className="settings">
-                <span className="dir-text">
-                    Please select a pathfinding algorithm: 
-                </span>
-                <AlgorithmSelect onChange={ setSelectedAlg } />
-                <hr></hr>
                 <br></br>
                 <span className="dir-text">
                     Please select orientation tie-break rule:
@@ -119,11 +114,16 @@ const Settings = ({ blueFunc, redFunc, greenFunc }) => {
                 invalid orientation sequence is selected</span>
                 <hr></hr>
                 <span className="dir-text">
+                    Please select a pathfinding algorithm: 
+                </span>
+                <AlgorithmSelect onChange={ setSelectedAlg } />
+                <hr></hr>
+                <span className="dir-text">
                     Please select a maze: 
                 </span>
-                <Select className="maze-slct" color="black" numOptions={4} 
-                    values={["Blank Board", "Recursive Backtrack", "maze3", "maze4"]} 
-                    texts={["Blank Board", "Recursive Backtrack", "maze3", "maze4"]} onChange={ setMaze } />
+                <Select className="maze-slct" color="black" numOptions={2} 
+                    values={["Blank Board", "Recursive Backtrack"]} 
+                    texts={["Blank Board", "Recursive Backtrack"]} onChange={ setMaze } />
                 <Button id="maze-btn" color="green" text="Generate" onClick={ handleOnClickGenMaze } />
                 <hr></hr>
                 <span className="dir-text">
