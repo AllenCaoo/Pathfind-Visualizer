@@ -42,43 +42,43 @@ export class Engine {
         this.engineIsRunning = true;
         let queues = this.algorithm();
         if (!this.isMaze) {
-            await this.display(queues["visited"], queues["path"], this.displayFancy, this.delay);
+            await this.display(queues["visited"], queues["path"], this.displayFancy, 
+                this.delay, this.isMaze, this.visitedColor, this.pathColor);
         } else {
-            await this.display(queues["visited"], queues["path"], this.displayFancy, this.delay);
+            await this.display(queues["visited"], queues["path"], this.displayFancy, 
+                this.delay, this.isMaze, this.visitedColor, this.pathColor);
         }
         this.engineIsRunning = false;
     }
     
 
-    async display(queue, path, displayFancy, delayMS) {
+    async display(queue, path, displayFancy, delayMS, isMaze, visitedColor, pathColor) {
         let baseOverLayDelayMS = 100;
         let pathDelayMS = 20;
-        let r = this.visitedColor['r'];
-        let g = this.visitedColor['g'];
-        let b = this.visitedColor['b'];
+        let r = visitedColor['r'];
+        let g = visitedColor['g'];
+        let b = visitedColor['b'];
 
         function sleep(ms) {
             return new Promise(resolve => setTimeout(resolve, ms));
         }
 
         async function overlapDisplay(box, r, g, b, catchUpDelay) {
-            if (!this.isMaze) {
-                /* rgb(64, 187, 224), rgb(56, 164, 197), rgb(48, 134, 160), rgb(48, 106, 160); */
-                if (r < 20 || g <= 50 || b <= 50 || hasBackgroundColor(box, this.pathColor)) {
-                    return;
-                }
-                box.style.backgroundColor = `rgb(${r}, ${g}, ${b})`;
-                await sleep(catchUpDelay + delayMS);
-                await overlapDisplay(box, r - 2, g - 6, b - 6, catchUpDelay);
+            /* rgb(64, 187, 224), rgb(56, 164, 197), rgb(48, 134, 160), rgb(48, 106, 160); */
+            if (r < 20 || g <= 50 || b <= 50 || hasBackgroundColor(box, pathColor)) {
+                return;
             }
+            box.style.backgroundColor = `rgb(${r}, ${g}, ${b})`;
+            await sleep(catchUpDelay + delayMS);
+            await overlapDisplay(box, r - 2, g - 6, b - 6, catchUpDelay);
         }
         
 
-        async function DisplayAndOverlap() {
+        async function displayAndOverlap(isMaze) {
             for (let i = 0; i < queue.length; i++) {
                 if (hasBackgroundColor(queue[i], "white")) {  // don't override green or red
                     setBackgroundColor(queue[i], `rgb(${r}, ${g}, ${b})`);
-                    if (displayFancy) {
+                    if (displayFancy && !isMaze) {
                         setTimeout(function () { 
                             overlapDisplay(queue[i], r - 1, g - 3, b - 3, baseOverLayDelayMS); 
                         }, 500);
@@ -88,13 +88,13 @@ export class Engine {
             }
         }
 
-        await DisplayAndOverlap();
+        await displayAndOverlap(isMaze);
 
         for (let i = 0; i < path.length; i++) {
             if (hasBackgroundColor(path[i], "green") || hasBackgroundColor(path[i], "red")) {
                 continue;
             }
-            setBackgroundColor(path[i], this.pathColor);
+            setBackgroundColor(path[i], pathColor);
             await sleep(pathDelayMS);
         }
         await sleep(delayMS + 1000 + baseOverLayDelayMS);
