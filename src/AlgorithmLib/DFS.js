@@ -1,4 +1,4 @@
-import {getAdjacent, getRowFromId, getColFromId, getElementByPos, display} from '../utils';
+import {getAdjacent, getRowFromId, getColFromId, getElementByPos} from '../utils';
 
 
 function DFSRun(startRow, startCol, endRow, endCol, orientationalJson) {

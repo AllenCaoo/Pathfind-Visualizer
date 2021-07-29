@@ -13,6 +13,7 @@ const colorToRGB = {
 }
 
 export function hasBackgroundColor(box, color) {
+    color = color.replace(/\s+/g,'').toLowerCase();
     return box.style.backgroundColor === color || box.style.backgroundColor === colorToRGB[color];
 }
 
@@ -20,7 +21,7 @@ export function setBackgroundColor(box, color) {
     box.style.backgroundColor = color;
 }
 
-export function getAdjacent(startRow, startCol, soFar, orientationalJson) {
+export function getAdjacent(startRow, startCol, soFar, orientationalJson, extraCheck) {
     /* Orientation:
             A
         D start B
@@ -28,6 +29,9 @@ export function getAdjacent(startRow, startCol, soFar, orientationalJson) {
     A -> B -> C -> D
     */
    /* If invalid orientation, then orientation is NESW */
+   /* extraCond */
+    extraCheck === undefined ? extraCheck = (box) => { return true; } : extraCheck = extraCheck;
+
    function getKeyByValue(object, value) {
     return Object.keys(object).find(key => object[key] === value);
     }
@@ -42,9 +46,33 @@ export function getAdjacent(startRow, startCol, soFar, orientationalJson) {
     for (let i = 1; i <= numOrientations; i++) {
         let ori = getKeyByValue(orientationalJson, i);
         let coords = oriToRowCol[ori];
-        addToQueue(lst, coords[0], coords[1], soFar, false);
+        addToQueue(lst, coords[0], coords[1], soFar, extraCheck);
     }
     return lst;
+}
+
+export function getAdjacentAllRound(startRow, startCol, soFar, extraCheck) {
+    extraCheck === undefined ? extraCheck = (box) => { return true; } : extraCheck = extraCheck;
+
+    let adjs = [[startRow - 1, startCol], 
+               [startRow, startCol + 1], 
+               [startRow + 1, startCol], 
+               [startRow, startCol - 1],
+               [startRow - 1, startCol - 1],
+               [startRow - 1, startCol + 1],
+               [startRow + 1, startCol - 1],
+               [startRow + 1, startCol + 1]
+            ];
+    let lst = [];
+    for (let i = 0; i < adjs.length; i++) {
+        let coords = adjs[i];
+        addToQueue(lst, coords[0], coords[1], soFar, extraCheck);
+    }
+    return lst;
+}
+
+export function randNum(lower, range) {
+    return Math.floor((Math.random() * range) + lower);
 }
 
 export function orientationListToJson(orientationList) {
@@ -58,6 +86,26 @@ export function orientationListToJson(orientationList) {
         return json;
     }
 }
+
+
+export function shuffle(array) {
+    var currentIndex = array.length, randomIndex;
+
+    // While there remain elements to shuffle...
+    while (0 !== currentIndex) {
+
+        // Pick a remaining element...
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex--;
+
+        // And swap it with the current element.
+        [array[currentIndex], array[randomIndex]] = [
+        array[randomIndex], array[currentIndex]];
+    }
+
+    return array;
+}
+
 
 export function getRowFromId(id) {
     let index = 0;
@@ -119,16 +167,12 @@ export function distBetweenBoxes(box1, box2) {
 }
 
 
-function addToQueue(queue, row, col, soFar, asList) {
+function addToQueue(queue, row, col, soFar, extraCheck) {
     if (row < 0 || row > maxRow) { return; }
     if (col < 0 || col > maxCol) { return; }
     let box = getElementByPos(row, col);
-    if (!soFar.includes(box) && box.style.backgroundColor != "black") {
-        if (asList) {
-            queue.push([box]);
-        } else {
-            queue.push(box);
-        }
+    if (!soFar.includes(box) && !hasBackgroundColor(box, "black") && extraCheck(box)) {
+        queue.push(box);
     }
 }
 
