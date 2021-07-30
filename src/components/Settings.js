@@ -1,11 +1,11 @@
 import {React, useState, useEffect} from 'react';
 import {AlgorithmSelect, Select} from './Select';
 import Orientations from './Orientations';
-import {Dijkstras, DFS, BFS, A_star, Greedy } from '../Engine';
+import {Dijkstras, DFS, BFS, A_star, Greedy} from '../Engine';
 import { FaTimes } from 'react-icons/fa';
 import Controls from './Controls';
 import Button from './Button'
-import { blankMaze, recursiveBacktrack } from '../Engine';
+import { blankMaze, recursiveBacktrack, randomPrims } from '../Engine';
 
 export const startPos = [10, 10];
 export const endPos = [10, 45];
@@ -20,7 +20,7 @@ const nameToAlgs = {
     "GREEDY": Greedy
   }
 
-const defaultOrientation = ['N', 'E', 'S', 'W'];
+export const defaultOrientation = ['N', 'E', 'S', 'W'];
 
 const speedToDelayMS = {
     "Fast": 0,
@@ -31,7 +31,8 @@ const speedToDelayMS = {
 
 const nameToMaze = {
     "Blank Board": blankMaze,
-    "Recursive Backtrack": recursiveBacktrack
+    "Recursive Backtrack": recursiveBacktrack,
+    "Random Prim's": randomPrims
 }
 
 const Settings = ({ blueFunc, redFunc, greenFunc }) => {
@@ -121,9 +122,9 @@ const Settings = ({ blueFunc, redFunc, greenFunc }) => {
                 <span className="dir-text">
                     Please select a maze: 
                 </span>
-                <Select className="maze-slct" color="black" numOptions={2} 
-                    values={["Blank Board", "Recursive Backtrack"]} 
-                    texts={["Blank Board", "Recursive Backtrack"]} onChange={ setMaze } />
+                <Select className="maze-slct" color="black" numOptions={3} 
+                    values={["Blank Board", "Recursive Backtrack", "Random Prim's"]} 
+                    texts={["Blank Board", "Recursive Backtrack", "Random Prim's"]} onChange={ setMaze } />
                 <Button id="maze-btn" color="green" text="Generate" onClick={ handleOnClickGenMaze } />
                 <hr></hr>
                 <span className="dir-text">

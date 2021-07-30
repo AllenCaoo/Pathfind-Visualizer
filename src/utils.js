@@ -12,6 +12,7 @@ const colorToRGB = {
     "black": "rgb(0, 0, 0)"
 }
 
+
 export function hasBackgroundColor(box, color) {
     color = color.replace(/\s+/g,'').toLowerCase();
     return box.style.backgroundColor === color || box.style.backgroundColor === colorToRGB[color];
@@ -30,6 +31,10 @@ export function getAdjacent(startRow, startCol, soFar, orientationalJson, extraC
     */
    /* If invalid orientation, then orientation is NESW */
    /* extraCond */
+    if (orientationalJson === undefined) {
+        orientationalJson = defaultOrientation;
+    }
+
     extraCheck === undefined ? extraCheck = (box) => { return true; } : extraCheck = extraCheck;
 
    function getKeyByValue(object, value) {
@@ -70,6 +75,20 @@ export function getAdjacentAllRound(startRow, startCol, soFar, extraCheck) {
     }
     return lst;
 }
+
+
+export function nextToVisited(box, visited, original) {
+    let row = getRowFromId(box.id);
+    let col = getColFromId(box.id);
+    let adjs = getAdjacent(row, col, [], orientationListToJson(['N', 'E', 'S', 'W']));
+    for (let i = 0; i < adjs.length; i++) {
+        if (visited.includes(adjs[i]) && adjs[i] != original) {
+            return true;
+        }
+    }
+    return false;
+}
+
 
 export function randNum(lower, range) {
     return Math.floor((Math.random() * range) + lower);

@@ -6,6 +6,7 @@ import GreedyRun from './AlgorithmLib/GreedyBFS';
 import {setBackgroundColor, hasBackgroundColor, orientationListToJson} from './utils';
 import runBlankMaze from './MazeLib/BlankMaze';
 import runRecursiveBacktrack from './MazeLib/RecursiveBacktrack';
+import runRandomPrims from './MazeLib/Prims';
 
 
 export class Engine { 
@@ -130,5 +131,9 @@ export function blankMaze(startRow, startCol, endRow, endCol, orientationList) {
 }
 
 export function recursiveBacktrack(startRow, startCol, endRow, endCol, orientationList) {
-    return runRecursiveBacktrack(startRow, startCol, endRow, endCol);
+    return runRecursiveBacktrack(startRow, startCol);
+}
+
+export function randomPrims(startRow, startCol, endRow, endCol, orientationList) {
+    return runRandomPrims(startRow, startCol, endRow, endCol, orientationList);
 }
