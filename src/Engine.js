@@ -96,7 +96,7 @@ export class Engine {
                 continue;
             }
             setBackgroundColor(path[i], pathColor);
-            await sleep(pathDelayMS + 1000); // Change seconds here to debug path
+            await sleep(pathDelayMS); // Change seconds here to debug path
         }
         await sleep(delayMS + 1000 + baseOverLayDelayMS);
     }
