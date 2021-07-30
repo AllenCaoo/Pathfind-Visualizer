@@ -1,5 +1,5 @@
 import {getAdjacent, getRowFromId, getColFromId, getElementByPos,
-    getAllBoxes, shuffle, orientationListToJson} from '../utils';
+    getAllBoxes, shuffle, orientationListToJson, nextToVisited} from '../utils';
 import { maxRow, maxCol } from '../components/Board';
 import { defaultOrientation } from '../components/Settings';
 
@@ -37,7 +37,10 @@ export default function runRandomPrims(startRow, startCol) {
 
 
 function relax(box, path, visited, stack, distTo, orientationalJson) {
-    let adjacents = getAdjacent(getRowFromId(box.id), getColFromId(box.id), visited, orientationalJson);
+    let adjacents = getAdjacent(getRowFromId(box.id), 
+        getColFromId(box.id), visited, orientationalJson, (adj) => {
+             return !nextToVisited(adj, visited, box);
+        });
     adjacents.forEach(adj => {
         let pathCopy = path.slice();
         let newAdjDist = 1;

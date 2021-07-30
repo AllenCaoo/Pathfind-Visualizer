@@ -122,9 +122,9 @@ const Settings = ({ blueFunc, redFunc, greenFunc }) => {
                 <span className="dir-text">
                     Please select a maze: 
                 </span>
-                <Select className="maze-slct" color="black" numOptions={3} 
-                    values={["Blank Board", "Recursive Backtrack", "Random Prim's"]} 
-                    texts={["Blank Board", "Recursive Backtrack", "Random Prim's"]} onChange={ setMaze } />
+                <Select className="maze-slct" color="black" numOptions={2} 
+                    values={["Blank Board", "Recursive Backtrack"]}  // TODO: ADD PRIMS BACK
+                    texts={["Blank Board", "Recursive Backtrack"]} onChange={ setMaze } />
                 <Button id="maze-btn" color="green" text="Generate" onClick={ handleOnClickGenMaze } />
                 <hr></hr>
                 <span className="dir-text">
