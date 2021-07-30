@@ -138,7 +138,7 @@ const Settings = ({ blueFunc, redFunc, greenFunc }) => {
             <br></br>
             <div className='playground'>
                 <span className="dir-text">
-                    Have Fun!
+                    Drag your mouse on the tiles to create walls. Have Fun!
                 </span>
                 <Controls 
                     blueClick={ handleClearDisplay }
