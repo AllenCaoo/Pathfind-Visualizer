@@ -8,8 +8,6 @@ export default function runRandomInversePrims(startRow, startCol) {
     makeAllWhite();
 
     var orientations = defaultOrientation.splice();
-    var blocked = new Set(getAllBoxHorizontal());
-    let blackVisited = getAllBoxHorizontal();
     let whiteVisited = [getElementByPos(startRow, startCol)];
     let frontiers = [getElementByPos(startRow, startCol)];
     while (frontiers.length > 0) {
