@@ -13,7 +13,9 @@ export default function runRandomPrims(startRow, startCol) {
     }
 
     function makePassage(box) {
-        whiteVisited.push(box);
+        if (!whiteVisited.includes(box)) {
+            whiteVisited.push(box);
+        }
         passage.add(box);
         blocked.delete(box);
     }
