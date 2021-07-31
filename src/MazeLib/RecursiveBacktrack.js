@@ -1,10 +1,11 @@
 import { FaMarker } from 'react-icons/fa';
 import {maxRow, maxCol} from '../components/Board';
 import {getAdjacent, nextToVisited, getRowFromId, getColFromId, getElementByPos, 
-        shuffle, orientationListToJson} from '../utils';
+        shuffle, orientationListToJson, makeAllWhite} from '../utils';
 import {defaultOrientation} from '../components/Settings';
 
 export default function runRecursiveBacktrack(startRow, startCol) {
+    makeAllWhite();
     var orientations = defaultOrientation;
     var blackVisited = getAllBoxHorizontal(); // turn all black
     function randomDFS(startRow, startCol, visited) {

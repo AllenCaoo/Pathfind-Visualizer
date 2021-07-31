@@ -1,4 +1,5 @@
 import {maxRow, maxCol} from './components/Board';
+import { startPos, endPos } from './components/Settings';
 
 var numOrientations = 4;
 var defaultOrientation = {
@@ -9,9 +10,32 @@ var defaultOrientation = {
 }
 
 const colorToRGB = {
-    "black": "rgb(0, 0, 0)"
+    "black": "rgb(0, 0, 0)",
+    "white": "rgb(255, 255, 255)"
 }
 
+export function makeAllWhite() {
+    for (let row = 0; row <= maxRow; row++) {
+        for (let col = 0; col <= maxCol; col++) {
+            let box = document.getElementById(`${row}-${col}`);
+            if (row === startPos[0] && col === startPos[1]) {
+                setBackgroundColor(box, "green");
+            } else if (row === endPos[0] && col === endPos[1]) {
+                setBackgroundColor(box, "red");
+            } else {
+                setBackgroundColor(box, "white");
+            }
+        }
+    }
+}
+
+export function isWall(box) {
+    return hasBackgroundColor(box, "black");
+}
+
+export function isPassage(box) {
+    return hasBackgroundColor(box, "white");
+}
 
 export function hasBackgroundColor(box, color) {
     color = color.replace(/\s+/g,'').toLowerCase();
@@ -55,6 +79,41 @@ export function getAdjacent(startRow, startCol, soFar, orientationalJson, extraC
     }
     return lst;
 }
+
+export function getFrontier(startRow, startCol, soFar, orientationalJson, extraCheck) {
+    /* Orientation:
+            A
+        D start B
+            C
+    A -> B -> C -> D
+    */
+   /* If invalid orientation, then orientation is NESW */
+   /* extraCond */
+    if (orientationalJson === undefined) {
+        orientationalJson = defaultOrientation;
+    }
+
+    extraCheck === undefined ? extraCheck = (box) => { return true; } : extraCheck = extraCheck;
+
+   function getKeyByValue(object, value) {
+    return Object.keys(object).find(key => object[key] === value);
+    }
+  
+    var oriToRowCol = {
+        'N': [startRow - 2, startCol],
+        'E': [startRow, startCol + 2],
+        'S': [startRow + 2, startCol],
+        'W': [startRow, startCol - 2]
+    }
+    let lst = [];
+    for (let i = 1; i <= numOrientations; i++) {
+        let ori = getKeyByValue(orientationalJson, i);
+        let coords = oriToRowCol[ori];
+        addToQueue(lst, coords[0], coords[1], soFar, extraCheck);
+    }
+    return lst;
+}
+
 
 export function getAdjacentAllRound(startRow, startCol, soFar, extraCheck) {
     extraCheck === undefined ? extraCheck = (box) => { return true; } : extraCheck = extraCheck;
@@ -142,9 +201,21 @@ export function getColFromId(id) {
     return parseInt(id.substring(index + 1));
 }
 
-
 export function getElementByPos(row, col) {
     return document.getElementById(`${row}-${col}`); 
+}
+
+export function getBoxBetween(box1, box2) {
+    let row1 = getRowFromId(box1.id);
+    let col1 = getColFromId(box1.id);
+    let row2 = getRowFromId(box2.id);
+    let col2 = getColFromId(box2.id);
+    let rowBetween = Math.floor(Math.abs(row1 - row2) / 2) + Math.min(row1, row2);
+    let colBetween = Math.floor(Math.abs(col1 - col2) / 2) + Math.min(col1, col2);
+    if (rowBetween >= 0 && rowBetween <= maxRow && colBetween >= 0 && colBetween <= maxCol) {
+        return getElementByPos(rowBetween, colBetween);
+    }
+    return null;
 }
 
 // TODO: try weight stuff
@@ -190,7 +261,11 @@ function addToQueue(queue, row, col, soFar, extraCheck) {
     if (row < 0 || row > maxRow) { return; }
     if (col < 0 || col > maxCol) { return; }
     let box = getElementByPos(row, col);
-    if (!soFar.includes(box) && !hasBackgroundColor(box, "black") && extraCheck(box)) {
+    if (Object.prototype.toString.call(soFar) === "[object Set]") {
+        if (!soFar.has(box) && !hasBackgroundColor(box, "black") && extraCheck(box)) {
+            queue.push(box);
+        }
+    } else if (!soFar.includes(box) && !hasBackgroundColor(box, "black") && extraCheck(box)) {
         queue.push(box);
     }
 }

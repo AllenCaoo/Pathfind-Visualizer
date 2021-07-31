@@ -7,6 +7,7 @@ import {setBackgroundColor, hasBackgroundColor, orientationListToJson} from './u
 import runBlankMaze from './MazeLib/BlankMaze';
 import runRecursiveBacktrack from './MazeLib/RecursiveBacktrack';
 import runRandomPrims from './MazeLib/Prims';
+import runRandomInversePrims from './MazeLib/InversePrims';
 
 
 export class Engine { 
@@ -91,6 +92,8 @@ export class Engine {
 
         await displayAndOverlap(isMaze);
 
+        console.log(path);
+
         for (let i = 0; i < path.length; i++) {
             if (hasBackgroundColor(path[i], "green") || hasBackgroundColor(path[i], "red")) {
                 continue;
@@ -136,4 +139,8 @@ export function recursiveBacktrack(startRow, startCol, endRow, endCol, orientati
 
 export function randomPrims(startRow, startCol, endRow, endCol, orientationList) {
     return runRandomPrims(startRow, startCol, endRow, endCol, orientationList);
+}
+
+export function inverseRandomPrims(startRow, startCol, endRow, endCol, orientationList) {
+    return runRandomInversePrims(startRow, startCol, endRow, endCol, orientationList);
 }
