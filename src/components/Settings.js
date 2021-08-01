@@ -108,32 +108,33 @@ const Settings = ({ blueFunc, redFunc, greenFunc }) => {
             <div className="settings">
                 <br></br>
                 <span className="dir-text">
-                    Please select orientation tie-break rule:
+                    Orientation tie-break rule:
                 </span>
                 <Orientations onChange={ setOrientation }/>
                 <br></br>
                 <span className="note"> Note: NESW will be chosen if 
                 invalid orientation sequence is selected</span>
-                <hr></hr>
+                <br></br>
                 <span className="dir-text">
-                    Please select a pathfinding algorithm: 
+                    Select a Pathfind algorithm: 
                 </span>
                 <AlgorithmSelect onChange={ setSelectedAlg } />
-                <hr></hr>
+                <br></br>
                 <span className="dir-text">
-                    Please select a maze: 
+                    Select a maze generation algorithm: 
                 </span>
                 <Select className="maze-slct" color="black" numOptions={4} 
                     values={["Blank Board", "Recursive Backtrack", "Random Prim's", "Inverse Random Prim's"]}  // TODO: ADD PRIMS BACK
                     texts={["Blank Board", "Recursive Backtrack", "Random Prim's", "Inverse Random Prim's"]} onChange={ setMaze } />
                 <Button id="maze-btn" color="green" text="Generate" onClick={ handleOnClickGenMaze } />
-                <hr></hr>
+                <br></br>
                 <span className="dir-text">
-                    Please select your desired speed: 
+                    Select an algorithm display speed: 
                 </span>
                 <Select className="speed-slct" color="black" numOptions={4} 
                     values={["Fast", "Normal", "Slow", "Step-By-Step"]} 
                     texts={["Fast", "Normal", "Slow", "Step-By-Step"]} onChange={ setSpeed } />
+                <br></br>
                 <hr></hr>
             </div>
             <br></br>

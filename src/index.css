@@ -113,7 +113,7 @@ body {
 }
 
 #maze-btn {
-  margin-left: 50px;
+  margin-left: 20px;
   padding: 5px 10px;
 }
 
@@ -133,6 +133,15 @@ body {
   text-align: center;
   text-align-last: center;
 }
+
+.alg-slct{
+  margin-left: 100px;
+}
+
+.speed-slct{
+  margin-left: 45px;
+}
+
 
 .ori-slct {
   display: inline-block;
@@ -236,7 +245,7 @@ input[type=checkbox]:checked {
 
 
 .board {
-  padding:2px;
+  padding: 2px;
   margin-left: auto;
   margin-right: auto;
   background-color: #000;
