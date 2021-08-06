@@ -1,7 +1,7 @@
 import React from 'react';
 import Button from './Button';
 
-const Modal = ( { buttonId, buttonColor, buttonText, buttonOnClick, modalContent} ) => {
+export const Modal = ( { buttonId, buttonColor, buttonText, buttonOnClick, modalContent} ) => {
     return (
         <>
         <Button id={buttonId} color={buttonColor} text={buttonText} 
@@ -12,7 +12,3 @@ const Modal = ( { buttonId, buttonColor, buttonText, buttonOnClick, modalContent
         </>
     )
 }
-
-
-
-export default Modal;

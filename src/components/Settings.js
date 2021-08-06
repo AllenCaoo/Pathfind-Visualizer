@@ -108,7 +108,7 @@ const Settings = ({ blueFunc, redFunc, greenFunc }) => {
             <div className="settings">
                 <br></br>
                 <span className="dir-text">
-                    Orientation tie-break rule:
+                    Select orientation tie-break rule:
                 </span>
                 <Orientations onChange={ setOrientation }/>
                 <br></br>
@@ -135,13 +135,13 @@ const Settings = ({ blueFunc, redFunc, greenFunc }) => {
                     values={["Fast", "Normal", "Slow", "Step-By-Step"]} 
                     texts={["Fast", "Normal", "Slow", "Step-By-Step"]} onChange={ setSpeed } />
                 <br></br>
+                <span className="dir-text">
+                    Drag your mouse on the grid to create walls. Have fun! 
+                </span>
                 <hr></hr>
             </div>
             <br></br>
             <div className='playground'>
-                <span className="dir-text">
-                    Drag your mouse on the tiles to create walls. Have Fun!
-                </span>
                 <Controls 
                     blueClick={ handleClearDisplay }
                     redClick={ handleClearAll }  
