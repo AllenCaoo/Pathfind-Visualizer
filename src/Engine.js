@@ -8,6 +8,7 @@ import runBlankMaze from './MazeLib/BlankMaze';
 import runRecursiveBacktrack from './MazeLib/RecursiveBacktrack';
 import runRandomPrims from './MazeLib/Prims';
 import runRandomInversePrims from './MazeLib/InversePrims';
+import recursveDivRun from './MazeLib/RecursiveDivision';
 
 
 export class Engine { 
@@ -143,4 +144,8 @@ export function randomPrims(startRow, startCol, endRow, endCol, orientationList)
 
 export function inverseRandomPrims(startRow, startCol, endRow, endCol, orientationList) {
     return runRandomInversePrims(startRow, startCol, endRow, endCol, orientationList);
+}
+
+export function recursiveDivision(startRow, startCol, endRow, endCol, orientationList) {
+    return recursiveDivision()
 }

@@ -5,7 +5,7 @@ import {Dijkstras, DFS, BFS, A_star, Greedy } from '../Engine';
 import { FaTimes } from 'react-icons/fa';
 import Controls from './Controls';
 import Button from './Button'
-import { blankMaze, recursiveBacktrack, randomPrims, inverseRandomPrims } from '../Engine';
+import { blankMaze, recursiveBacktrack, randomPrims, inverseRandomPrims, recursiveDivision } from '../Engine';
 
 export const startPos = [10, 10];
 export const endPos = [10, 45];
@@ -33,7 +33,8 @@ const nameToMaze = {
     "Blank Board": blankMaze,
     "Recursive Backtrack": recursiveBacktrack,
     "Random Prim's": randomPrims,
-    "Inverse Random Prim's": inverseRandomPrims
+    "Inverse Random Prim's": inverseRandomPrims,
+    "Recursive Division": recursiveDivision
 }
 
 const Settings = ({ blueFunc, redFunc, greenFunc }) => {
@@ -123,9 +124,9 @@ const Settings = ({ blueFunc, redFunc, greenFunc }) => {
                 <span className="dir-text">
                     Select a maze generation algorithm: 
                 </span>
-                <Select className="maze-slct" color="black" numOptions={4} 
-                    values={["Blank Board", "Recursive Backtrack", "Random Prim's", "Inverse Random Prim's"]}  // TODO: ADD PRIMS BACK
-                    texts={["Blank Board", "Recursive Backtrack", "Random Prim's", "Inverse Random Prim's"]} onChange={ setMaze } />
+                <Select className="maze-slct" color="black" numOptions={5} 
+                    values={["Blank Board", "Recursive Backtrack", "Random Prim's", "Inverse Random Prim's", "Recrusive Division"]}  // TODO: ADD PRIMS BACK
+                    texts={["Blank Board", "Recursive Backtrack", "Random Prim's", "Inverse Random Prim's", "Recrusive Division"]} onChange={ setMaze } />
                 <Button id="maze-btn" color="green" text="Generate" onClick={ handleOnClickGenMaze } />
                 <br></br>
                 <span className="dir-text">
