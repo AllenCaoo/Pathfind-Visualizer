@@ -125,8 +125,8 @@ const Settings = ({ blueFunc, redFunc, greenFunc }) => {
                     Select a maze generation algorithm: 
                 </span>
                 <Select className="maze-slct" color="black" numOptions={5} 
-                    values={["Blank Board", "Recursive Backtrack", "Random Prim's", "Inverse Random Prim's", "Recrusive Division"]}  // TODO: ADD PRIMS BACK
-                    texts={["Blank Board", "Recursive Backtrack", "Random Prim's", "Inverse Random Prim's", "Recrusive Division"]} onChange={ setMaze } />
+                    values={["Blank Board", "Recursive Backtrack", "Random Prim's", "Inverse Random Prim's", "Recursive Division"]}  // TODO: ADD PRIMS BACK
+                    texts={["Blank Board", "Recursive Backtrack", "Random Prim's", "Inverse Random Prim's", "Recursive Division"]} onChange={ setMaze } />
                 <Button id="maze-btn" color="green" text="Generate" onClick={ handleOnClickGenMaze } />
                 <br></br>
                 <span className="dir-text">
